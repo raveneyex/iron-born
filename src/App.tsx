@@ -12,7 +12,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-screen bg-amber-800">
+    <div className="flex flex-col items-center justify-center bg-amber-800">
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

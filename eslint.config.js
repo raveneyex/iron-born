@@ -1,9 +1,9 @@
 import js from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
+import prettier from 'eslint-config-prettier';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
-import prettier from 'eslint-config-prettier';
-import stylistic from '@stylistic/eslint-plugin';
 
 export default tseslint.config(
   { ignores: ['dist', 'node_modules', 'coverage'] },
@@ -20,7 +20,7 @@ export default tseslint.config(
     rules: {
       'semi-style': ['error', 'last'],
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'react-refresh/only-export-components': 'off',
     },
   }
 );

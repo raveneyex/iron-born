@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router';
 import { store } from './redux/store.ts';
 
-import { AppRouter } from './AppRouter.tsx';
 import './index.css';
+import { AppRouter } from './router/AppRouter.tsx';
 
 const container = document.getElementById('root');
 
