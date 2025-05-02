@@ -16,13 +16,13 @@ export function ModeSwitcher() {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
-          <Button variant="ghost" className="group/toggle h-8 w-8 px-0" onClick={toggleTheme}>
+        <Button variant="ghost" className="group/toggle h-8 w-8 px-0" onClick={toggleTheme} asChild>
+          <TooltipTrigger>
             <SunIcon className="hidden [html.dark_&]:block" />
             <MoonIcon className="hidden [html.light_&]:block" />
             <span className="sr-only">Toggle theme</span>
-          </Button>
-        </TooltipTrigger>
+          </TooltipTrigger>
+        </Button>
         <TooltipContent>
           <p>{tooltipText}</p>
         </TooltipContent>
