@@ -1,4 +1,5 @@
 import { Dumbbell } from 'lucide-react';
+import { MainNav } from './MainNav';
 import { ModeSwitcher } from './ModeSwitcher';
 
 export function Header() {
@@ -8,6 +9,8 @@ export function Header() {
         <Dumbbell className="w-6 h-6" />
         <h1 className="text-lg font-semibold">Workout Tracker</h1>
       </div>
+
+      <MainNav />
 
       <div className="flex items-center gap-2">
         <ModeSwitcher />
