@@ -20,13 +20,12 @@ export function AddExerciseDialog(props: AddExerciseDialogProps) {
         </div>
       </DialogTrigger>
       <DialogContent>
-        <>
-          <DialogHeader>
-            <DialogTitle>Add a new exercise</DialogTitle>
-          </DialogHeader>
-          <DialogDescription className="text-sm">Fields marked with (*) are mandatory.</DialogDescription>
-          <ExerciseForm onSubmit={onAddExercise} />
-        </>
+        <DialogHeader>
+          <DialogTitle>Add a new exercise</DialogTitle>
+        </DialogHeader>
+        <DialogDescription className="text-sm">Fields marked with (*) are mandatory.</DialogDescription>
+
+        <ExerciseForm onSubmit={onAddExercise} />
       </DialogContent>
     </Dialog>
   );
