@@ -6,3 +6,4 @@ coverage/
 .env.test.local
 .env.production.local
 .DS_Store
+.vscode/

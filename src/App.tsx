@@ -1,16 +1,16 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { useAppSelector, useAppDispatch } from './redux/hooks'
-import { selectCount, increment } from './redux/slices/counterSlice'
+import './App.css';
+import reactLogo from './assets/react.svg';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { increment, selectCount } from './redux/slices/counterSlice';
+import viteLogo from '/vite.svg';
 
 function App() {
-  const count = useAppSelector(selectCount)
-  const dispatch = useAppDispatch()
+  const count = useAppSelector(selectCount);
+  const dispatch = useAppDispatch();
 
   const handleIncrement = () => {
-    dispatch(increment())
-  }
+    dispatch(increment());
+  };
 
   return (
     <>
@@ -24,18 +24,14 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={handleIncrement}>
-          count is {count}
-        </button>
+        <button onClick={handleIncrement}>count is {count}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
