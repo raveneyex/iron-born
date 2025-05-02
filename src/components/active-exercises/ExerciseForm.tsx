@@ -1,14 +1,15 @@
 import { cn } from '@/lib/utils';
+import { IExercise } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
 
 interface ExerciseFormProps {
   className?: string;
+  onSubmit: (data: IExercise) => void;
 }
 
 const ExerciseInputSchema = z.object({
@@ -22,7 +23,7 @@ const ExerciseInputSchema = z.object({
 type ExerciseInput = z.infer<typeof ExerciseInputSchema>;
 
 export function ExerciseForm(props: ExerciseFormProps) {
-  const { className } = props;
+  const { className, onSubmit } = props;
 
   const form = useForm<ExerciseInput>({
     resolver: zodResolver(ExerciseInputSchema),
@@ -37,82 +38,78 @@ export function ExerciseForm(props: ExerciseFormProps) {
 
   const isFormDisabled = !form.formState.isDirty || !form.formState.isValid;
 
-  const onSubmit = (data: ExerciseInput) => {
+  const submitHandler = (data: ExerciseInput) => {
     console.log(data);
+    onSubmit(data as IExercise);
     form.reset();
   };
 
   return (
-    <Card className="sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-lg w-full">
-      <CardHeader className="text-center">
-        <CardTitle className="text-md">Add a new exercise</CardTitle>
-        <CardDescription className="text-sm">Fields marked with (*) are mandatory.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className={cn('space-y-8', className)}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Exercise Name (*)</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Exercise Name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(submitHandler)}
+        className={cn('space-y-8 w-full max-w-sm md:max-w-md', className)}
+      >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Exercise Name (*)</FormLabel>
+              <FormControl>
+                <Input placeholder="Exercise Name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-            <FormField
-              control={form.control}
-              name="sets"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Sets (*)</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="Sets" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <FormField
+          control={form.control}
+          name="sets"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Sets (*)</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="Sets" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-            <FormField
-              control={form.control}
-              name="reps"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Reps (*)</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="Reps" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <FormField
+          control={form.control}
+          name="reps"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Reps (*)</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="Reps" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-            <FormField
-              control={form.control}
-              name="weight"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Weight</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="Weight" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <FormField
+          control={form.control}
+          name="weight"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Weight</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="Weight" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-            <Button type="submit" className="w-full" disabled={isFormDisabled}>
-              Add Exercise
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+        <Button type="submit" className="w-full" disabled={isFormDisabled}>
+          Add Exercise
+        </Button>
+      </form>
+    </Form>
   );
 }

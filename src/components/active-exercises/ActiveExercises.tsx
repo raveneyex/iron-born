@@ -1,5 +1,5 @@
 import { IExercise } from '@/types/exercise';
-import { Button } from '../ui/button';
+import { AddExerciseDialog } from './AddExerciseDialog';
 import { ExerciseGrid } from './ExerciseGrid';
 
 const exercises: IExercise[] = [
@@ -54,11 +54,15 @@ const exercises: IExercise[] = [
 ];
 
 export function ActiveExercises() {
+  const handleAddExercise = (exercise: IExercise) => {
+    console.log(exercise);
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col md:flex-row justify-between items-center mb-10 mt-4 gap-4">
         <h1 className="text-4xl font-bold ">Active Exercises</h1>
-        <Button>Add Exercise</Button>
+        <AddExerciseDialog onAddExercise={handleAddExercise} />
       </div>
       {exercises.length > 0 ? (
         <ExerciseGrid exercises={exercises} />
