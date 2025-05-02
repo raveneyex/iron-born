@@ -13,9 +13,7 @@ export function Quote(props: QuoteProps) {
       <CardContent>
         <p className="text-xl text-white text-shadow-md text-shadow-black">{text}</p>
       </CardContent>
-      <CardFooter className="justify-end self-end">
-        <p className="text-sm italic">— {author}</p>
-      </CardFooter>
+      <CardFooter className="justify-end self-end">{author && <p className="text-sm italic">— {author}</p>}</CardFooter>
     </Card>
   );
 }
