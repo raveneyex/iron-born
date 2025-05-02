@@ -16,6 +16,7 @@ const ExerciseInputSchema = z.object({
   sets: z.number().min(1, { message: 'Sets must be at least 1' }),
   reps: z.number().min(1, { message: 'Reps must be at least 1' }),
   weight: z.number().min(1, { message: 'Weight must be at least 1' }).optional(),
+  categories: z.array(z.string()).optional(),
 });
 
 type ExerciseInput = z.infer<typeof ExerciseInputSchema>;
