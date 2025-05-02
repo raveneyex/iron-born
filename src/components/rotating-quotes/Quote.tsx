@@ -11,7 +11,7 @@ export function Quote(props: QuoteProps) {
   return (
     <Card className="max-w-sm w-full h-[250px] justify-between bg-[url('/dark-gym.png')] bg-cover bg-center bg-opacity-50">
       <CardContent>
-        <p className="text-xl text-shadow-md text-shadow-black">{text}</p>
+        <p className="text-xl text-white text-shadow-md text-shadow-black">{text}</p>
       </CardContent>
       <CardFooter className="justify-end self-end">
         <p className="text-sm italic">— {author}</p>
