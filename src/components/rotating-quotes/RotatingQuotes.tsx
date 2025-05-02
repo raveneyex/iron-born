@@ -18,7 +18,7 @@ export function RotatingQuotes() {
   }, [dispatch]);
 
   return (
-    <div className="w-full md:max-w-sm">
+    <div className="w-full md:max-w-sm py-5">
       {isLoading && <RotatingQuotesSkeleton />}
       {status === statuses.succeeded && <QuotesCarousel quotes={quotes} />}
       {status === statuses.failed && <div>There was an error fetching the quotes</div>}
