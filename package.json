@@ -14,7 +14,8 @@
     "format": "prettier --write .",
     "preview": "vite preview",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "prepare": "husky"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.7.0",
@@ -47,12 +48,18 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
     "jsdom": "^26.1.0",
+    "lint-staged": "^15.5.1",
     "prettier": "3.5.3",
     "tw-animate-css": "^1.2.8",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.1",
     "vitest": "^3.1.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js}": "npm run lint",
+    "**/*": "npm run format"
   }
 }
