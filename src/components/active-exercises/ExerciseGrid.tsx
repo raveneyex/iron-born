@@ -10,8 +10,8 @@ export function ExerciseGrid(props: ExerciseGridProps) {
 
   return (
     <div className="flex flex-row flex-wrap gap-4 items-center justify-center w-full">
-      {exercises.map((exercise, index) => (
-        <ExerciseCard key={`${exercise.name}-${index}`} exercise={exercise} />
+      {exercises.map((exercise) => (
+        <ExerciseCard key={exercise.id} exercise={exercise} />
       ))}
     </div>
   );

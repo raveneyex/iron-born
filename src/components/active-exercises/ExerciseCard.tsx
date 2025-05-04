@@ -14,7 +14,7 @@ interface ExerciseCardProps {
 
 export function ExerciseCard(props: ExerciseCardProps) {
   const { exercise } = props;
-  const completedExerciseCheckboxId = `${exercise.name}-completed`;
+  const completedExerciseCheckboxId = `${exercise.id}-completed`;
 
   const dispatch = useAppDispatch();
 
