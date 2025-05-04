@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/redux/hooks';
-import { completeSet } from '@/redux/slices/exercisesSlice';
+import { completeExercise, completeSet } from '@/redux/slices/exercisesSlice';
 import { ActiveExercise } from '@/types/exercise';
 import { Label } from '@radix-ui/react-label';
 import { Button } from '../ui/button';
@@ -22,9 +22,7 @@ export function ExerciseCard(props: ExerciseCardProps) {
 
   const onCompleteExercise = (checked: boolean) => {
     if (checked) {
-      console.log(`Complete exercise: ${exercise.name}`);
-    } else {
-      console.log(`Incomplete exercise: ${exercise.name}`);
+      dispatch(completeExercise(exercise.id));
     }
   };
 

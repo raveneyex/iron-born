@@ -22,9 +22,8 @@ export function AddExerciseDialog(props: AddExerciseDialogProps) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add a new exercise</DialogTitle>
+          <DialogDescription className="text-sm">Fields marked with (*) are mandatory.</DialogDescription>
         </DialogHeader>
-        <DialogDescription className="text-sm">Fields marked with (*) are mandatory.</DialogDescription>
-
         <AddExerciseForm onSubmit={onAddExercise} />
       </DialogContent>
     </Dialog>

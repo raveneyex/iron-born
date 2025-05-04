@@ -1,12 +1,16 @@
+import { StorageService } from '@/services/storageService';
 import { IExercise } from '@/types/exercise';
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+const storageService = StorageService.getInstance();
+const storedExercises: IExercise[] = storageService.getExercises();
 
 export type ExercisesSliceState = {
   exercises: IExercise[];
 };
 
 const initialState: ExercisesSliceState = {
-  exercises: [],
+  exercises: storedExercises,
 };
 
 export const exercisesSlice = createSlice({
@@ -15,6 +19,7 @@ export const exercisesSlice = createSlice({
   reducers: {
     addExercise: (state, action: PayloadAction<IExercise>) => {
       state.exercises.push(action.payload);
+      storageService.setExercises(state.exercises);
     },
     completeSet: (state, action: PayloadAction<string>) => {
       const index = state.exercises.findIndex((exercise) => exercise.id === action.payload);
@@ -27,9 +32,10 @@ export const exercisesSlice = createSlice({
           };
         }
       }
+      storageService.setExercises(state.exercises);
     },
     completeExercise: (state, action: PayloadAction<string>) => {
-      const index = state.exercises.findIndex((exercise) => exercise.name === action.payload);
+      const index = state.exercises.findIndex((exercise) => exercise.id === action.payload);
       if (index !== -1) {
         const exercise = state.exercises[index];
         state.exercises[index] = {
@@ -38,6 +44,7 @@ export const exercisesSlice = createSlice({
           dateCompleted: new Date().toISOString(),
         };
       }
+      storageService.setExercises(state.exercises);
     },
   },
   selectors: {
