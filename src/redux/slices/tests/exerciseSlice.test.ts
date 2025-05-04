@@ -1,4 +1,5 @@
-import { ActiveExercise, WeightUnits } from '@/types/exercise';
+import { ExercisesSliceState } from '@/redux/slices/exercisesSlice';
+import { ActiveExercise, IExercise, WeightUnits } from '@/types/exercise';
 import { describe, expect, it, vi } from 'vitest';
 import { exercisesSlice } from '../exercisesSlice';
 
@@ -248,6 +249,104 @@ describe('exercisesSlice', () => {
       const newState = exercisesSlice.reducer(state, action);
 
       expect(newState.exercises).toHaveLength(0);
+    });
+  });
+
+  describe('selectors', () => {
+    const mockExercises: IExercise[] = [
+      {
+        id: '1',
+        name: 'Active Exercise',
+        totalSets: 1,
+        sets: [],
+        weightUnits: 'kg' as WeightUnits,
+        status: 'active',
+        currentSet: 1,
+      },
+      {
+        id: '2',
+        name: 'Completed Exercise',
+        totalSets: 1,
+        sets: [],
+        weightUnits: 'lbs' as WeightUnits,
+        status: 'completed',
+        totalReps: 10,
+        totalWeight: 100,
+        dateCompleted: Date.now(),
+      },
+    ];
+    const mockState: ExercisesSliceState = {
+      exercises: mockExercises,
+    };
+
+    describe('selectActiveExercises', () => {
+      it('should return only active exercises', () => {
+        const result = exercisesSlice.selectors.selectActiveExercises({ exercises: mockState });
+        expect(result).toHaveLength(1);
+        expect(result[0].status).toBe('active');
+        expect(result[0].name).toBe('Active Exercise');
+      });
+
+      it('should return empty array when no active exercises', () => {
+        const emptyState = {
+          exercises: [
+            {
+              id: '2',
+              name: 'Completed Exercise',
+              totalSets: 1,
+              sets: [],
+              weightUnits: 'lbs' as WeightUnits,
+              status: 'completed' as const,
+              totalReps: 10,
+              totalWeight: 100,
+              dateCompleted: Date.now(),
+            },
+          ],
+        };
+        const result = exercisesSlice.selectors.selectActiveExercises({
+          exercises: emptyState,
+        });
+        expect(result).toHaveLength(0);
+      });
+    });
+
+    describe('selectCompletedExercises', () => {
+      it('should return only completed exercises', () => {
+        const result = exercisesSlice.selectors.selectCompletedExercises({ exercises: mockState });
+        expect(result).toHaveLength(1);
+        expect(result[0].status).toBe('completed');
+        expect(result[0].name).toBe('Completed Exercise');
+      });
+
+      it('should return empty array when no completed exercises', () => {
+        const emptyState = {
+          exercises: [
+            {
+              id: '1',
+              name: 'Active Exercise',
+              totalSets: 1,
+              sets: [],
+              weightUnits: 'kg' as WeightUnits,
+              status: 'active' as const,
+              currentSet: 1,
+            },
+          ],
+        };
+        const result = exercisesSlice.selectors.selectCompletedExercises({ exercises: emptyState });
+        expect(result).toHaveLength(0);
+      });
+    });
+
+    describe('selectWeightUnits', () => {
+      it('should return weight units for existing exercise', () => {
+        const result = exercisesSlice.selectors.selectWeightUnits({ exercises: mockState }, '1');
+        expect(result).toBe('kg');
+      });
+
+      it('should return default weight units (kg) for non-existent exercise', () => {
+        const result = exercisesSlice.selectors.selectWeightUnits({ exercises: mockState }, 'non-existent');
+        expect(result).toBe('kg');
+      });
     });
   });
 });

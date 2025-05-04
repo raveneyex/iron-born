@@ -150,11 +150,11 @@ export const exercisesSlice = createSlice({
   },
   selectors: {
     selectActiveExercises: createSelector(
-      (state) => state.exercises,
+      (state: ExercisesSliceState) => state.exercises,
       (exercises) => exercises.filter((exercise: IExercise) => exercise.status === 'active')
     ),
     selectCompletedExercises: createSelector(
-      (state) => state.exercises,
+      (state: ExercisesSliceState) => state.exercises,
       (exercises) => exercises.filter((exercise: IExercise) => exercise.status === 'completed')
     ),
     selectWeightUnits: (state, exerciseId: string) => {
