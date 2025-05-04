@@ -1,16 +1,16 @@
 import { IExercise } from '@/types/exercise';
-import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
-import { ExerciseForm } from './ExerciseForm';
+import { ExerciseForm } from './AddExerciseForm';
 
 interface AddExerciseDialogProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
   onAddExercise: (exercise: IExercise) => void;
 }
 
 export function AddExerciseDialog(props: AddExerciseDialogProps) {
-  const { onAddExercise } = props;
-  const [open, setOpen] = useState(false);
+  const { open, setOpen, onAddExercise } = props;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

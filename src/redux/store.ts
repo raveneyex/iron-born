@@ -1,8 +1,8 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
-import { counterSlice } from './slices/counterSlice';
+import { exercisesSlice } from './slices/exercisesSlice';
 import { quotesSlice } from './slices/quotesSlice';
 
-const rootReducer = combineSlices(counterSlice, quotesSlice);
+const rootReducer = combineSlices(quotesSlice, exercisesSlice);
 
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({

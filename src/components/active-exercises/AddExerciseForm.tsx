@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { IExercise } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { nanoid } from '@reduxjs/toolkit';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '../ui/button';
@@ -17,7 +18,6 @@ const ExerciseInputSchema = z.object({
   sets: z.number().min(1, { message: 'Sets must be at least 1' }),
   reps: z.number().min(1, { message: 'Reps must be at least 1' }),
   weight: z.number().min(1, { message: 'Weight must be at least 1' }).optional(),
-  categories: z.array(z.string()).optional(),
 });
 
 type ExerciseInput = z.infer<typeof ExerciseInputSchema>;
@@ -27,7 +27,7 @@ export function ExerciseForm(props: ExerciseFormProps) {
 
   const form = useForm<ExerciseInput>({
     resolver: zodResolver(ExerciseInputSchema),
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       name: '',
       sets: 4,
@@ -36,11 +36,22 @@ export function ExerciseForm(props: ExerciseFormProps) {
     },
   });
 
+  const handleNumericInputChange = (value: string, field: keyof ExerciseInput) => {
+    const parsedValue = parseInt(value, 10);
+    form.setValue(field, parsedValue);
+  };
+
   const isFormDisabled = !form.formState.isDirty || !form.formState.isValid;
 
   const submitHandler = (data: ExerciseInput) => {
-    console.log(data);
-    onSubmit(data as IExercise);
+    const newExercise: IExercise = {
+      ...data,
+      weight: data.weight || undefined,
+      status: 'active',
+      currentSet: 0,
+      id: nanoid(),
+    };
+    onSubmit(newExercise);
     form.reset();
   };
 
@@ -71,7 +82,12 @@ export function ExerciseForm(props: ExerciseFormProps) {
             <FormItem>
               <FormLabel>Sets (*)</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Sets" {...field} />
+                <Input
+                  type="number"
+                  placeholder="Sets"
+                  {...field}
+                  onChange={(e) => handleNumericInputChange(e.target.value, 'sets')}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -85,7 +101,12 @@ export function ExerciseForm(props: ExerciseFormProps) {
             <FormItem>
               <FormLabel>Reps (*)</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Reps" {...field} />
+                <Input
+                  type="number"
+                  placeholder="Reps"
+                  {...field}
+                  onChange={(e) => handleNumericInputChange(e.target.value, 'reps')}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,7 +120,12 @@ export function ExerciseForm(props: ExerciseFormProps) {
             <FormItem>
               <FormLabel>Weight</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Weight" {...field} />
+                <Input
+                  type="number"
+                  placeholder="Weight"
+                  {...field}
+                  onChange={(e) => handleNumericInputChange(e.target.value, 'weight')}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

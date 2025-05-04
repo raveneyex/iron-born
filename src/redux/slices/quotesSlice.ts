@@ -1,17 +1,17 @@
 import { QuotesService } from '@/services/quotesService';
 import { IQuote } from '@/types/quote';
-import { Status, statuses } from '@/types/status';
+import { RequestStatus, RequestStatuses } from '@/types/requestStatuses';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export type QuotesSliceState = {
   quotes: IQuote[];
-  status: Status;
+  status: RequestStatus;
   error: string | null;
 };
 
 const initialState: QuotesSliceState = {
   quotes: [],
-  status: statuses.idle,
+  status: RequestStatuses.idle,
   error: null,
 };
 
@@ -34,14 +34,14 @@ export const quotesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchQuotes.pending, (state) => {
-      state.status = statuses.loading;
+      state.status = RequestStatuses.loading;
     });
     builder.addCase(fetchQuotes.fulfilled, (state, action) => {
-      state.status = statuses.succeeded;
+      state.status = RequestStatuses.succeeded;
       state.quotes = action.payload;
     });
     builder.addCase(fetchQuotes.rejected, (state, action) => {
-      state.status = statuses.failed;
+      state.status = RequestStatuses.failed;
       state.error = action.payload ?? 'Unknown error occurred';
     });
   },
