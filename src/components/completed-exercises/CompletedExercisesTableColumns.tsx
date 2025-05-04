@@ -14,9 +14,6 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => {
-      return <div className="w-3/5truncate">{row.original.name}</div>;
-    },
   },
   {
     header: ({ column }) => {
@@ -55,7 +52,7 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
       if (!originalWeight) {
         return <div>--</div>;
       }
-      return <div className="w-3/5truncate">{originalWeight * row.original.reps}</div>;
+      return <div>{originalWeight * row.original.reps}</div>;
     },
   },
   {
