@@ -20,9 +20,6 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
   const { exerciseId, set, onCompleteSet, onUncompleteSet } = props;
   const dispatch = useAppDispatch();
 
-  console.log('set', set);
-  console.log('set completed', set.completed);
-
   const weightUnits = useAppSelector((state) => selectWeightUnits(state, exerciseId));
 
   const form = useForm<ExerciseSetInputData>({
@@ -44,12 +41,9 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
   };
 
   const handleCompletedSet = (data: ExerciseSetInputData) => {
-    console.log('handleCompletedSet', data);
     if (set.completed) {
-      console.log('uncompleting set');
       onUncompleteSet({ exerciseId: exerciseId, setId: set.id });
     } else {
-      console.log('completing set');
       onCompleteSet({ exerciseId: exerciseId, setId: set.id, data });
     }
   };

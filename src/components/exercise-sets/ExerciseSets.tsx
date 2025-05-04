@@ -13,8 +13,6 @@ interface ExerciseSetsProps {
 export function ExerciseSets(props: ExerciseSetsProps) {
   const { exercise, onCompleteSet, onUncompleteSet } = props;
 
-  console.log('exercise sets', exercise.sets);
-
   return (
     <div className="grid grid-cols-[auto_auto_auto_auto] gap-2">
       <h1 className="text-sm font-bold ml-2">Reps</h1>
