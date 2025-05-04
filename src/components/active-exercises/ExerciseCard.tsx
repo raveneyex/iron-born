@@ -3,10 +3,10 @@ import { completeExercise, completeSet } from '@/redux/slices/exercisesSlice';
 import { ActiveExercise } from '@/types/exercise';
 import { Label } from '@radix-ui/react-label';
 import { toast } from 'sonner';
+import { ExerciseSets } from '../exercise-sets/ExerciseSets';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Checkbox } from '../ui/checkbox';
-import { Progress } from '../ui/progress';
 
 interface ExerciseCardProps {
   exercise: ActiveExercise;
@@ -20,7 +20,7 @@ export function ExerciseCard(props: ExerciseCardProps) {
 
   const onCompleteSet = () => {
     dispatch(completeSet(exercise.id));
-    if (exercise.currentSet === exercise.sets - 1) {
+    if (exercise.currentSet === exercise.totalSets - 1) {
       onCompleteExercise(true);
     }
   };
@@ -32,22 +32,15 @@ export function ExerciseCard(props: ExerciseCardProps) {
     }
   };
 
-  const setsProgress = (exercise.currentSet / exercise.sets) * 100;
+  // const setsProgress = (exercise.currentSet / exercise.totalSets) * 100;
 
   return (
-    <Card className="w-[250px]">
+    <Card>
       <CardHeader>
         <CardTitle>{exercise.name}</CardTitle>
       </CardHeader>
-      <CardContent>
-        <p>Reps: {exercise.reps}</p>
-        <p>Weight: {exercise.weight}</p>
-        <div className="flex flex-col gap-2">
-          <p>
-            Sets: {exercise.currentSet}/{exercise.sets}
-          </p>
-          <Progress value={setsProgress} />
-        </div>
+      <CardContent className="p-2">
+        <ExerciseSets exercise={exercise} />
       </CardContent>
       <CardFooter className="flex flex-col justify-between items-start gap-2">
         <Button onClick={onCompleteSet}>Complete Set</Button>

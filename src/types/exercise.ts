@@ -1,11 +1,22 @@
 export type ExerciseStatus = 'active' | 'completed';
 
+type WeightUnits = 'kg' | 'lbs';
+
+type WeightData = {
+  weight: number;
+  units: WeightUnits;
+};
+
+export type ExerciseSet = {
+  reps?: number;
+  weight?: WeightData;
+};
+
 type BaseExercise = {
   id: string;
   name: string;
-  sets: number;
-  reps: number;
-  weight?: number;
+  totalSets: number;
+  sets: ExerciseSet[];
 };
 
 export type ActiveExercise = BaseExercise & {

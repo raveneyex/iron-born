@@ -15,9 +15,9 @@ interface AddExerciseFormProps {
 
 const ExerciseInputSchema = z.object({
   name: z.string().min(5, { message: 'Name must be at least 5 characters long' }),
-  sets: z.number().min(1, { message: 'Sets must be at least 1' }),
-  reps: z.number().min(1, { message: 'Reps must be at least 1' }),
-  weight: z.number().min(1, { message: 'Weight must be at least 1' }).optional(),
+  totalSets: z.number().min(1, { message: 'Sets must be at least 1' }),
+  // reps: z.number().min(1, { message: 'Reps must be at least 1' }),
+  // weight: z.number().min(1, { message: 'Weight must be at least 1' }).optional(),
 });
 
 type ExerciseInput = z.infer<typeof ExerciseInputSchema>;
@@ -30,9 +30,9 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
     mode: 'onChange',
     defaultValues: {
       name: '',
-      sets: 4,
-      reps: 8,
-      weight: 1,
+      totalSets: 4,
+      // reps: 8,
+      // weight: 1,
     },
   });
 
@@ -46,10 +46,10 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
   const submitHandler = (data: ExerciseInput) => {
     const newExercise: ActiveExercise = {
       ...data,
-      weight: data.weight || undefined,
       status: 'active',
       currentSet: 0,
       id: nanoid(),
+      sets: [],
     };
     onSubmit(newExercise);
     form.reset();
@@ -77,16 +77,16 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
 
         <FormField
           control={form.control}
-          name="sets"
+          name="totalSets"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Sets (*)</FormLabel>
+              <FormLabel>Total Sets (*)</FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  placeholder="Sets"
+                  placeholder="Total Sets"
                   {...field}
-                  onChange={(e) => handleNumericInputChange(e.target.value, 'sets')}
+                  onChange={(e) => handleNumericInputChange(e.target.value, 'totalSets')}
                 />
               </FormControl>
               <FormMessage />
@@ -94,7 +94,7 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="reps"
           render={({ field }) => (
@@ -130,7 +130,7 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <Button type="submit" className="w-full" disabled={isFormDisabled}>
           Add Exercise
