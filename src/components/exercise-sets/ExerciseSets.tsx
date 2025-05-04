@@ -19,11 +19,21 @@ export function ExerciseSets(props: ExerciseSetsProps) {
 
   return (
     <div className="grid grid-cols-[auto_auto_auto_auto_auto] gap-2" data-testid="exercise-sets">
-      <h1 className="text-sm font-bold ml-2">Reps</h1>
-      <h1 className="text-sm font-bold ml-2">Weight</h1>
-      <h1 className="text-sm font-bold ml-2">Units</h1>
-      <h1 className="text-sm font-bold">Delete</h1>
-      <h1 className="text-sm font-bold">Complete</h1>
+      <h1 role="columnheader" className="text-sm font-bold ml-2">
+        Reps
+      </h1>
+      <h1 role="columnheader" className="text-sm font-bold ml-2">
+        Weight
+      </h1>
+      <h1 role="columnheader" className="text-sm font-bold ml-2">
+        Units
+      </h1>
+      <h1 role="columnheader" className="text-sm font-bold">
+        Delete
+      </h1>
+      <h1 role="columnheader" className="text-sm font-bold">
+        Complete
+      </h1>
 
       {exercise.sets.map((set) => (
         <ExerciseSetRow
