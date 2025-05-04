@@ -27,6 +27,7 @@ export function DeleteExerciseButton(props: DeleteExerciseButtonProps) {
   return (
     <Button variant={buttonVariant} size={buttonSize} onClick={handleDeleteExercise}>
       {variant === 'icon' ? <TrashIcon className="w-4 h-4" /> : 'Delete Exercise'}
+      <span className="sr-only">Delete Exercise</span>
     </Button>
   );
 }
