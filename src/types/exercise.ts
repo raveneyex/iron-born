@@ -15,7 +15,7 @@ export type ActiveExercise = BaseExercise & {
 
 export type CompletedExercise = BaseExercise & {
   status: 'completed';
-  dateCompleted: string;
+  dateCompleted: number;
 };
 
 export type IExercise = ActiveExercise | CompletedExercise;
