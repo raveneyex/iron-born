@@ -1,5 +1,5 @@
 import { StorageService } from '@/services/storageService';
-import { IExercise } from '@/types/exercise';
+import { ExerciseSet, IExercise } from '@/types/exercise';
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const storageService = StorageService.getInstance();
@@ -13,6 +13,11 @@ const initialState: ExercisesSliceState = {
   exercises: storedExercises,
 };
 
+type CompleteSetPayload = {
+  id: string;
+  data: ExerciseSet;
+};
+
 export const exercisesSlice = createSlice({
   name: 'exercises',
   initialState,
@@ -21,14 +26,24 @@ export const exercisesSlice = createSlice({
       state.exercises.push(action.payload);
       storageService.setExercises(state.exercises);
     },
-    completeSet: (state, action: PayloadAction<string>) => {
+    addSet: (state, action: PayloadAction<string>) => {
       const index = state.exercises.findIndex((exercise) => exercise.id === action.payload);
+      if (index !== -1) {
+        const exercise = state.exercises[index];
+        exercise.totalSets++;
+      }
+      storageService.setExercises(state.exercises);
+    },
+    completeSet: (state, action: PayloadAction<CompleteSetPayload>) => {
+      const { id, data } = action.payload;
+      const index = state.exercises.findIndex((exercise) => exercise.id === id);
       if (index !== -1) {
         const exercise = state.exercises[index];
         if (exercise.status === 'active') {
           state.exercises[index] = {
             ...exercise,
             currentSet: exercise.currentSet + 1,
+            sets: [...exercise.sets, data],
           };
         }
       }
@@ -59,6 +74,6 @@ export const exercisesSlice = createSlice({
   },
 });
 
-export const { addExercise, completeSet, completeExercise } = exercisesSlice.actions;
+export const { addExercise, addSet, completeSet, completeExercise } = exercisesSlice.actions;
 
 export const { selectActiveExercises, selectCompletedExercises } = exercisesSlice.selectors;

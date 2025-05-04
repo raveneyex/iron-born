@@ -1,16 +1,24 @@
+import { z } from 'zod';
+
 export type ExerciseStatus = 'active' | 'completed';
 
-type WeightUnits = 'kg' | 'lbs';
+const WeightUnitsSchema = z.enum(['kg', 'lbs']);
 
-type WeightData = {
-  weight: number;
-  units: WeightUnits;
-};
+export type WeightUnits = z.infer<typeof WeightUnitsSchema>;
 
-export type ExerciseSet = {
-  reps?: number;
-  weight?: WeightData;
-};
+const WeightSchema = z.object({
+  weight: z.number().min(1, { message: 'Weight must be at least 1' }).optional(),
+  units: WeightUnitsSchema.optional(),
+});
+
+export type WeightData = z.infer<typeof WeightSchema>;
+
+export const ExerciseSetSchema = z.object({
+  reps: z.number().min(1, { message: 'Reps must be at least 1' }).optional(),
+  weight: WeightSchema.optional(),
+});
+
+export type ExerciseSet = z.infer<typeof ExerciseSetSchema>;
 
 type BaseExercise = {
   id: string;

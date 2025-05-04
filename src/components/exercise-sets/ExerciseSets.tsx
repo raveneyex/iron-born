@@ -16,7 +16,7 @@ export function ExerciseSets(props: ExerciseSetsProps) {
       <h1 className="text-sm font-bold">Complete</h1>
 
       {Array.from({ length: exercise.totalSets }).map((_, index) => (
-        <ExerciseSetRow key={index} />
+        <ExerciseSetRow key={index} exerciseId={exercise.id} />
       ))}
     </div>
   );
