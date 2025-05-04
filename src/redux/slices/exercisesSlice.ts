@@ -141,6 +141,10 @@ export const exercisesSlice = createSlice({
       }
       storageService.setExercises(state.exercises);
     },
+    deleteExercise: (state, action: PayloadAction<string>) => {
+      state.exercises = state.exercises.filter((exercise) => exercise.id !== action.payload);
+      storageService.setExercises(state.exercises);
+    },
   },
   selectors: {
     selectActiveExercises: createSelector(
@@ -161,7 +165,15 @@ export const exercisesSlice = createSlice({
   },
 });
 
-export const { addExercise, addSet, completeSet, completeExercise, changeWeightUnits, uncompleteSet, deleteSet } =
-  exercisesSlice.actions;
+export const {
+  addExercise,
+  addSet,
+  completeSet,
+  completeExercise,
+  changeWeightUnits,
+  uncompleteSet,
+  deleteSet,
+  deleteExercise,
+} = exercisesSlice.actions;
 
 export const { selectActiveExercises, selectCompletedExercises, selectWeightUnits } = exercisesSlice.selectors;

@@ -2,6 +2,7 @@ import type { CompletedExercise } from '@/types/exercise';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { Button } from '../ui/button';
+import { DeleteExerciseButton } from './DeleteExerciseButton';
 
 export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
   {
@@ -82,6 +83,12 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
         month: 'numeric',
         day: 'numeric',
       });
+    },
+  },
+  {
+    id: 'delete',
+    cell: ({ row }) => {
+      return <DeleteExerciseButton exerciseId={row.original.id} exerciseName={row.original.name} />;
     },
   },
 ];

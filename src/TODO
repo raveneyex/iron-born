@@ -1,7 +1,4 @@
 
-- add ability to remove Set
-- do not automatically complete exercise on set completion
-- add ability to uncomplete set
-  - change button icon
 - Make sure all type imports are marked as type
+- Make sure import paths use aliases
 - Ensure naming consistency
