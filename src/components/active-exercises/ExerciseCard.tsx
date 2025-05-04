@@ -2,6 +2,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { completeExercise, completeSet } from '@/redux/slices/exercisesSlice';
 import { ActiveExercise } from '@/types/exercise';
 import { Label } from '@radix-ui/react-label';
+import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Checkbox } from '../ui/checkbox';
@@ -23,6 +24,7 @@ export function ExerciseCard(props: ExerciseCardProps) {
   const onCompleteExercise = (checked: boolean) => {
     if (checked) {
       dispatch(completeExercise(exercise.id));
+      toast.success(`${exercise.name} completed!`);
     }
   };
 

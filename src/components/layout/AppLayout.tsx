@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import { Outlet } from 'react-router';
 import { Header } from './Header';
 import { ThemeProvider } from './ThemeProvider';
@@ -9,6 +10,7 @@ export function AppLayout() {
         <Header />
         <main className="p-4 flex flex-col w-full overflow-x-hidden">
           <Outlet />
+          <Toaster />
         </main>
       </div>
     </ThemeProvider>
