@@ -17,18 +17,18 @@ describe('AddExerciseForm', () => {
     expect(getByLabelText(/Exercise Name/i)).toBeInTheDocument();
     expect(getByLabelText(/Total Sets/i)).toBeInTheDocument();
     expect(getByText(/Weight Units/i)).toBeInTheDocument();
-    expect(getByRole('button', { name: /Add Exercise/i })).toBeInTheDocument();
+    expect(getByRole('button', { name: /Save Exercise/i })).toBeInTheDocument();
   });
 
   it('has submit button disabled by default', () => {
     const { getByRole } = render(<AddExerciseForm onSubmit={mockOnSubmit} />);
-    const submitButton = getByRole('button', { name: /Add Exercise/i });
+    const submitButton = getByRole('button', { name: /Save Exercise/i });
     expect(submitButton).toBeDisabled();
   });
 
   it('enables submit button when form is valid and dirty', async () => {
     const { getByRole, getByLabelText } = render(<AddExerciseForm onSubmit={mockOnSubmit} />);
-    const submitButton = getByRole('button', { name: /Add Exercise/i });
+    const submitButton = getByRole('button', { name: /Save Exercise/i });
     const nameInput = getByLabelText(/Exercise Name/i);
     const setsInput = getByLabelText(/Total Sets/i);
 
@@ -44,7 +44,7 @@ describe('AddExerciseForm', () => {
   it('calls onSubmit with correct data when form is submitted', async () => {
     const { getByRole, getByLabelText } = render(<AddExerciseForm onSubmit={mockOnSubmit} />);
 
-    const submitButton = getByRole('button', { name: /Add Exercise/i });
+    const submitButton = getByRole('button', { name: /Save Exercise/i });
     const nameInput = getByLabelText(/Exercise Name/i);
     const setsInput = getByLabelText(/Total Sets/i);
 
@@ -66,7 +66,7 @@ describe('AddExerciseForm', () => {
   it('resets form after successful submission', async () => {
     const { getByRole, getByLabelText } = render(<AddExerciseForm onSubmit={mockOnSubmit} />);
 
-    const submitButton = getByRole('button', { name: /Add Exercise/i });
+    const submitButton = getByRole('button', { name: /Save Exercise/i });
     const nameInput = getByLabelText(/Exercise Name/i);
     const setsInput = getByLabelText(/Total Sets/i);
 
@@ -99,7 +99,7 @@ describe('AddExerciseForm', () => {
 
     const nameInput = getByLabelText(/Exercise Name/i);
     const setsInput = getByLabelText(/Total Sets/i);
-    const submitButton = getByRole('button', { name: /Add Exercise/i });
+    const submitButton = getByRole('button', { name: /Save Exercise/i });
 
     await user.type(nameInput, 'Barbell Bench Press');
     await user.clear(setsInput);

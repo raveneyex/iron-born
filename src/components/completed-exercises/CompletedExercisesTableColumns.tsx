@@ -12,6 +12,7 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Exercise
           <ArrowUpDown className="ml-2 h-4 w-4" />
+          <span className="sr-only">Sort by exercise name</span>
         </Button>
       );
     },

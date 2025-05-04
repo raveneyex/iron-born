@@ -49,7 +49,7 @@ describe('ExerciseCard', () => {
     );
 
     expect(getByText('Add Set')).toBeInTheDocument();
-    expect(getByRole('button', { name: 'Delete Exercise' })).toBeInTheDocument();
+    expect(getByRole('button', { name: /Delete Exercise/i })).toBeInTheDocument();
     expect(getByTestId('completed-checkbox')).toBeInTheDocument();
   });
 

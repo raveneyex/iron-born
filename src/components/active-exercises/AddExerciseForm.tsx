@@ -101,7 +101,7 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
         />
 
         <Button name="submit" type="submit" className="w-full" disabled={isFormDisabled}>
-          Add Exercise
+          Save Exercise
         </Button>
       </form>
     </Form>

@@ -78,7 +78,7 @@ describe('ExerciseGrid', () => {
     const exerciseCards = getAllByTestId('exercise-card');
     expect(exerciseCards).toHaveLength(mockExercises.length);
     const { getByRole } = within(exerciseCards[0]);
-    const deleteButton = getByRole('button', { name: 'Delete Exercise' });
+    const deleteButton = getByRole('button', { name: /Delete Exercise/i });
     expect(deleteButton).toBeInTheDocument();
 
     await user.click(deleteButton);

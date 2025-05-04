@@ -92,7 +92,7 @@ describe('CompletedExercisesTable', () => {
   it('sorts by exercise name when header is clicked', async () => {
     const { getByRole, getAllByRole } = renderWithRedux(<CompletedExercisesTable />, createMockStore());
 
-    const exerciseHeader = getByRole('button', { name: /Exercise/i });
+    const exerciseHeader = getByRole('button', { name: /Sort by exercise name/i });
     expect(exerciseHeader).toBeInTheDocument();
     await user.click(exerciseHeader);
 
