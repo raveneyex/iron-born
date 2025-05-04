@@ -13,11 +13,15 @@ export interface ExerciseSetRowProps {
   exerciseId: string;
   set: ExerciseSet;
   onCompleteSet: (params: { exerciseId: string; setId: string; data: ExerciseSetInputData }) => void;
+  onUncompleteSet: (params: { exerciseId: string; setId: string }) => void;
 }
 
 export function ExerciseSetRow(props: ExerciseSetRowProps) {
-  const { exerciseId, set, onCompleteSet } = props;
+  const { exerciseId, set, onCompleteSet, onUncompleteSet } = props;
   const dispatch = useAppDispatch();
+
+  console.log('set', set);
+  console.log('set completed', set.completed);
 
   const weightUnits = useAppSelector((state) => selectWeightUnits(state, exerciseId));
 
@@ -27,7 +31,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
     defaultValues: {
       reps: set.reps,
       weight: set.weight,
-      completed: false,
+      completed: set.completed,
     },
   });
 
@@ -40,7 +44,14 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
   };
 
   const handleCompletedSet = (data: ExerciseSetInputData) => {
-    onCompleteSet({ exerciseId: exerciseId, setId: set.id, data });
+    console.log('handleCompletedSet', data);
+    if (set.completed) {
+      console.log('uncompleting set');
+      onUncompleteSet({ exerciseId: exerciseId, setId: set.id });
+    } else {
+      console.log('completing set');
+      onCompleteSet({ exerciseId: exerciseId, setId: set.id, data });
+    }
   };
 
   const handleUnitsChange = (value: WeightUnits) => {
@@ -97,7 +108,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
           <WeightUnitsSelect weightUnits={weightUnits} onChange={handleUnitsChange} className="w-20" />
         </FormItem>
 
-        <Button type="submit" size="icon" className="justify-self-center" disabled={set.completed}>
+        <Button type="submit" size="icon" className="justify-self-center">
           <CheckIcon className="w-4 h-4" />
         </Button>
       </form>

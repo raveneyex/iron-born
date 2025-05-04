@@ -27,6 +27,11 @@ type CompleteSetPayload = {
   data: ExerciseSetInputData;
 };
 
+type UncompleteSetPayload = {
+  exerciseId: string;
+  setId: string;
+};
+
 type ChangeWeightUnitsPayload = {
   exerciseId: string;
   weightUnits: WeightUnits;
@@ -84,6 +89,27 @@ export const exercisesSlice = createSlice({
       }
       storageService.setExercises(state.exercises);
     },
+    uncompleteSet: (state, action: PayloadAction<UncompleteSetPayload>) => {
+      const { exerciseId, setId } = action.payload;
+      const index = findExerciseIndex(state.exercises, exerciseId);
+      if (index !== -1) {
+        const exercise = state.exercises[index];
+        const exerciseSets = exercise.sets.map((set) => {
+          if (set.id === setId) {
+            return { ...set, completed: false };
+          }
+          return set;
+        });
+
+        if (exercise.status === 'active') {
+          state.exercises[index] = {
+            ...exercise,
+            currentSet: exercise.currentSet - 1,
+            sets: exerciseSets,
+          };
+        }
+      }
+    },
     completeExercise: (state, action: PayloadAction<string>) => {
       const index = findExerciseIndex(state.exercises, action.payload);
       if (index !== -1) {
@@ -116,6 +142,7 @@ export const exercisesSlice = createSlice({
   },
 });
 
-export const { addExercise, addSet, completeSet, completeExercise, changeWeightUnits } = exercisesSlice.actions;
+export const { addExercise, addSet, completeSet, completeExercise, changeWeightUnits, uncompleteSet } =
+  exercisesSlice.actions;
 
 export const { selectActiveExercises, selectCompletedExercises, selectWeightUnits } = exercisesSlice.selectors;

@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/redux/hooks';
-import { addSet, completeExercise, completeSet } from '@/redux/slices/exercisesSlice';
+import { addSet, completeExercise, completeSet, uncompleteSet } from '@/redux/slices/exercisesSlice';
 import { ActiveExercise, ExerciseSetInputData } from '@/types/exercise';
 import { Label } from '@radix-ui/react-label';
 import { toast } from 'sonner';
@@ -21,9 +21,10 @@ export function ExerciseCard(props: ExerciseCardProps) {
 
   const onCompleteSet = (params: { exerciseId: string; setId: string; data: ExerciseSetInputData }) => {
     dispatch(completeSet(params));
-    if (exercise.currentSet === exercise.totalSets - 1) {
-      onCompleteExercise(true);
-    }
+  };
+
+  const onUncompleteSet = (params: { exerciseId: string; setId: string }) => {
+    dispatch(uncompleteSet(params));
   };
 
   const onAddSet = () => {
@@ -55,7 +56,7 @@ export function ExerciseCard(props: ExerciseCardProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="p-2 md:overflow-y-auto custom-scrollbar overflow-x-hidden">
-        <ExerciseSets exercise={exercise} onCompleteSet={onCompleteSet} />
+        <ExerciseSets exercise={exercise} onCompleteSet={onCompleteSet} onUncompleteSet={onUncompleteSet} />
       </CardContent>
       <CardFooter className="flex flex-col justify-between items-start gap-2">
         <Button onClick={onAddSet}>Add Set</Button>
