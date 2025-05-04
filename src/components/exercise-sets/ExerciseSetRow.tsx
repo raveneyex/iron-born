@@ -69,7 +69,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
           name="reps"
           render={({ field }) => (
             <FormItem className="contents">
-              <FormLabel className="hidden">Reps</FormLabel>
+              <FormLabel className="sr-only">Reps</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -90,7 +90,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
           name="weight"
           render={({ field }) => (
             <FormItem className="contents">
-              <FormLabel className="hidden">Weight</FormLabel>
+              <FormLabel className="sr-only">Weight</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -107,16 +107,18 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
         />
 
         <FormItem className="contents">
-          <FormLabel className="hidden">Weight Units</FormLabel>
+          <FormLabel className="sr-only">Weight Units</FormLabel>
           <WeightUnitsSelect weightUnits={weightUnits} onChange={handleUnitsChange} className="w-20" />
         </FormItem>
 
-        <Button type="button" size="icon" className="justify-self-center" onClick={handleDeleteSet}>
+        <Button name="delete-set" type="button" size="icon" className="justify-self-center" onClick={handleDeleteSet}>
           <TrashIcon className="w-4 h-4" />
+          <span className="sr-only">Delete Set</span>
         </Button>
 
-        <Button type="submit" size="icon" className="justify-self-center">
+        <Button name="complete-set" type="submit" size="icon" className="justify-self-center">
           {set.completed ? <CheckCheck className="w-4 h-4" /> : <CheckIcon className="w-4 h-4" />}
+          <span className="sr-only">{set.completed ? 'Uncomplete Set' : 'Complete Set'}</span>
         </Button>
       </form>
     </Form>
