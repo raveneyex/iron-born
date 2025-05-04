@@ -46,6 +46,7 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
       <form
         onSubmit={form.handleSubmit(submitHandler)}
         className={cn('space-y-8 w-full max-w-sm md:max-w-md', className)}
+        data-testid="add-exercise-form"
       >
         <FormField
           control={form.control}
@@ -87,14 +88,19 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
             <FormItem>
               <FormLabel>Weight Units</FormLabel>
               <FormControl>
-                <WeightUnitsSelect weightUnits={field.value} onChange={handleUnitsChange} className="w-full" />
+                <WeightUnitsSelect
+                  {...field}
+                  weightUnits={field.value}
+                  onChange={handleUnitsChange}
+                  className="w-full"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isFormDisabled}>
+        <Button name="submit" type="submit" className="w-full" disabled={isFormDisabled}>
           Add Exercise
         </Button>
       </form>
