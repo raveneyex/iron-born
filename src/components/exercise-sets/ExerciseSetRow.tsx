@@ -2,7 +2,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { selectWeightUnits } from '@/redux/slices/exercisesSlice';
 import { ExerciseSet, ExerciseSetInputData, ExerciseSetSchema, WeightUnits } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CheckIcon, TrashIcon } from 'lucide-react';
+import { CheckCheck, CheckIcon, TrashIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
@@ -112,7 +112,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
         </Button>
 
         <Button type="submit" size="icon" className="justify-self-center">
-          <CheckIcon className="w-4 h-4" />
+          {set.completed ? <CheckCheck className="w-4 h-4" /> : <CheckIcon className="w-4 h-4" />}
         </Button>
       </form>
     </Form>
