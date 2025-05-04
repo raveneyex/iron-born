@@ -1,15 +1,20 @@
+import { renderWithRedux } from '@/lib/testUtils';
+import { exercisesSlice } from '@/redux/slices/exercisesSlice';
 import { ActiveExercise } from '@/types/exercise';
-import { render } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { configureStore } from '@reduxjs/toolkit';
+import { render, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { toast } from 'sonner';
+import { describe, expect, it } from 'vitest';
 import { ExerciseGrid } from '../ExerciseGrid';
 
-vi.mock('../ExerciseCard', () => ({
-  ExerciseCard: ({ exercise }: { exercise: ActiveExercise }) => (
-    <div data-testid="exercise-card" data-exercise-id={exercise.id} data-exercise-name={exercise.name}>
-      {exercise.name}
-    </div>
-  ),
+vi.mock('sonner', () => ({
+  toast: {
+    success: vi.fn(),
+  },
 }));
+
+const user = userEvent.setup();
 
 const mockExercises: ActiveExercise[] = [
   {
@@ -32,15 +37,23 @@ const mockExercises: ActiveExercise[] = [
   },
 ];
 
+const createMockStore = () => {
+  return configureStore({
+    reducer: {
+      exercises: exercisesSlice.reducer,
+    },
+  });
+};
+
 describe('ExerciseGrid', () => {
   it('renders the correct number of exercise cards', () => {
-    const { getAllByTestId } = render(<ExerciseGrid exercises={mockExercises} />);
+    const { getAllByTestId } = renderWithRedux(<ExerciseGrid exercises={mockExercises} />, createMockStore());
     const exerciseCards = getAllByTestId('exercise-card');
     expect(exerciseCards).toHaveLength(mockExercises.length);
   });
 
   it('passes the correct exercise data to each card', () => {
-    const { getAllByTestId } = render(<ExerciseGrid exercises={mockExercises} />);
+    const { getAllByTestId } = renderWithRedux(<ExerciseGrid exercises={mockExercises} />, createMockStore());
     const exerciseCards = getAllByTestId('exercise-card');
 
     exerciseCards.forEach((card, index) => {
@@ -54,5 +67,25 @@ describe('ExerciseGrid', () => {
     const { queryByTestId } = render(<ExerciseGrid exercises={[]} />);
     const exerciseCards = queryByTestId('exercise-card');
     expect(exerciseCards).not.toBeInTheDocument();
+  });
+
+  it('deletes exercise when delete button is clicked', async () => {
+    const { getAllByTestId, queryByTestId } = renderWithRedux(
+      <ExerciseGrid exercises={mockExercises} />,
+      createMockStore()
+    );
+
+    const exerciseCards = getAllByTestId('exercise-card');
+    expect(exerciseCards).toHaveLength(mockExercises.length);
+    const { getByRole } = within(exerciseCards[0]);
+    const deleteButton = getByRole('button', { name: 'Delete Exercise' });
+    expect(deleteButton).toBeInTheDocument();
+
+    await user.click(deleteButton);
+
+    await waitFor(() => {
+      expect(toast.success).toHaveBeenCalledWith(`${mockExercises[0].name} deleted`);
+      expect(queryByTestId('exercise-card-1')).not.toBeInTheDocument();
+    });
   });
 });
