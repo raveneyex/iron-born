@@ -57,7 +57,12 @@ export function ExerciseCard(props: ExerciseCardProps) {
   const setsProgress = (exercise.currentSet / exercise.totalSets) * 100;
 
   return (
-    <Card className="md:h-[420px] box-border">
+    <Card
+      className="md:h-[420px] box-border"
+      data-testid="exercise-card"
+      data-exercise-id={exercise.id}
+      data-exercise-name={exercise.name}
+    >
       <CardHeader>
         <CardTitle>
           <div className="flex items-center justify-between w-full">
@@ -86,7 +91,11 @@ export function ExerciseCard(props: ExerciseCardProps) {
           <DeleteExerciseButton exerciseId={exercise.id} exerciseName={exercise.name} variant="default" />
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id={completedExerciseCheckboxId} onCheckedChange={onCompleteExercise} />
+          <Checkbox
+            id={completedExerciseCheckboxId}
+            onCheckedChange={onCompleteExercise}
+            data-testid="completed-checkbox"
+          />
           <Label className="text-base font-bold" htmlFor={completedExerciseCheckboxId}>
             Mark as completed
           </Label>

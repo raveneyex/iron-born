@@ -59,7 +59,11 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleCompletedSet)} className="contents">
+      <form
+        onSubmit={form.handleSubmit(handleCompletedSet)}
+        className="contents"
+        data-testid={`exercise-${exerciseId}-set-row-${set.id}`}
+      >
         <FormField
           control={form.control}
           name="reps"
