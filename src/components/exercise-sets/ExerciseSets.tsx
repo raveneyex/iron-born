@@ -1,12 +1,15 @@
 import { ActiveExercise } from '@/types/exercise';
-import { ExerciseSetRow } from './ExerciseSetRow';
+import { ExerciseSetRow, ExerciseSetRowProps } from './ExerciseSetRow';
+
+type OnCompleteSet = ExerciseSetRowProps['onCompleteSet'];
 
 interface ExerciseSetsProps {
   exercise: ActiveExercise;
+  onCompleteSet: OnCompleteSet;
 }
 
 export function ExerciseSets(props: ExerciseSetsProps) {
-  const { exercise } = props;
+  const { exercise, onCompleteSet } = props;
 
   return (
     <div className="grid grid-cols-[auto_auto_auto_auto] gap-2">
@@ -15,8 +18,8 @@ export function ExerciseSets(props: ExerciseSetsProps) {
       <h1 className="text-sm font-bold ml-2">Units</h1>
       <h1 className="text-sm font-bold">Complete</h1>
 
-      {Array.from({ length: exercise.totalSets }).map((_, index) => (
-        <ExerciseSetRow key={index} exerciseId={exercise.id} />
+      {exercise.sets.map((set) => (
+        <ExerciseSetRow key={set.id} exerciseId={exercise.id} set={set} onCompleteSet={onCompleteSet} />
       ))}
     </div>
   );

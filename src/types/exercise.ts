@@ -1,3 +1,4 @@
+import { nanoid } from '@reduxjs/toolkit';
 import { z } from 'zod';
 
 export type ExerciseStatus = 'active' | 'completed';
@@ -16,9 +17,21 @@ export type WeightData = z.infer<typeof WeightSchema>;
 export const ExerciseSetSchema = z.object({
   reps: z.number().min(1, { message: 'Reps must be at least 1' }).optional(),
   weight: WeightSchema.optional(),
+  completed: z.boolean(),
 });
 
-export type ExerciseSet = z.infer<typeof ExerciseSetSchema>;
+export type ExerciseSetInputData = z.infer<typeof ExerciseSetSchema>;
+
+export type ExerciseSet = ExerciseSetInputData & {
+  id: string;
+};
+
+export const ExerciseInputSchema = z.object({
+  name: z.string().min(5, { message: 'Name must be at least 5 characters long' }),
+  totalSets: z.number().min(1, { message: 'Sets must be at least 1' }),
+});
+
+export type ExerciseInputData = z.infer<typeof ExerciseInputSchema>;
 
 type BaseExercise = {
   id: string;
@@ -38,3 +51,22 @@ export type CompletedExercise = BaseExercise & {
 };
 
 export type IExercise = ActiveExercise | CompletedExercise;
+
+export function createExerciseSet(): ExerciseSet {
+  return {
+    id: nanoid(),
+    reps: 3,
+    weight: { weight: 10, units: 'kg' },
+    completed: false,
+  };
+}
+
+export function createExercise(data: ExerciseInputData): ActiveExercise {
+  return {
+    ...data,
+    status: 'active',
+    currentSet: 0,
+    id: nanoid(),
+    sets: Array.from({ length: data.totalSets }, () => createExerciseSet()),
+  };
+}

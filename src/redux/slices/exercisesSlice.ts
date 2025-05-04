@@ -1,5 +1,12 @@
 import { StorageService } from '@/services/storageService';
-import { ExerciseSet, IExercise } from '@/types/exercise';
+import {
+  ActiveExercise,
+  createExercise,
+  createExerciseSet,
+  ExerciseInputData,
+  ExerciseSetInputData,
+  IExercise,
+} from '@/types/exercise';
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const storageService = StorageService.getInstance();
@@ -14,16 +21,18 @@ const initialState: ExercisesSliceState = {
 };
 
 type CompleteSetPayload = {
-  id: string;
-  data: ExerciseSet;
+  exerciseId: string;
+  setId: string;
+  data: ExerciseSetInputData;
 };
 
 export const exercisesSlice = createSlice({
   name: 'exercises',
   initialState,
   reducers: {
-    addExercise: (state, action: PayloadAction<IExercise>) => {
-      state.exercises.push(action.payload);
+    addExercise: (state, action: PayloadAction<ExerciseInputData>) => {
+      const newExercise: ActiveExercise = createExercise(action.payload);
+      state.exercises.push(newExercise);
       storageService.setExercises(state.exercises);
     },
     addSet: (state, action: PayloadAction<string>) => {
@@ -31,19 +40,28 @@ export const exercisesSlice = createSlice({
       if (index !== -1) {
         const exercise = state.exercises[index];
         exercise.totalSets++;
+        exercise.sets.push(createExerciseSet());
       }
       storageService.setExercises(state.exercises);
     },
     completeSet: (state, action: PayloadAction<CompleteSetPayload>) => {
-      const { id, data } = action.payload;
-      const index = state.exercises.findIndex((exercise) => exercise.id === id);
+      const { exerciseId, setId, data } = action.payload;
+      const index = state.exercises.findIndex((exercise) => exercise.id === exerciseId);
+
       if (index !== -1) {
         const exercise = state.exercises[index];
+        const exerciseSets = exercise.sets.map((set) => {
+          if (set.id === setId) {
+            return { ...set, ...data, completed: true };
+          }
+          return set;
+        });
+
         if (exercise.status === 'active') {
           state.exercises[index] = {
             ...exercise,
             currentSet: exercise.currentSet + 1,
-            sets: [...exercise.sets, data],
+            sets: exerciseSets,
           };
         }
       }

@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@/redux/hooks';
-import { addSet, completeExercise } from '@/redux/slices/exercisesSlice';
-import { ActiveExercise } from '@/types/exercise';
+import { addSet, completeExercise, completeSet } from '@/redux/slices/exercisesSlice';
+import { ActiveExercise, ExerciseSetInputData } from '@/types/exercise';
 import { Label } from '@radix-ui/react-label';
 import { toast } from 'sonner';
 import { ExerciseSets } from '../exercise-sets/ExerciseSets';
@@ -19,12 +19,12 @@ export function ExerciseCard(props: ExerciseCardProps) {
 
   const dispatch = useAppDispatch();
 
-  // const onCompleteSet = () => {
-  //   dispatch(completeSet(exercise.id));
-  //   if (exercise.currentSet === exercise.totalSets - 1) {
-  //     onCompleteExercise(true);
-  //   }
-  // };
+  const onCompleteSet = (params: { exerciseId: string; setId: string; data: ExerciseSetInputData }) => {
+    dispatch(completeSet(params));
+    if (exercise.currentSet === exercise.totalSets - 1) {
+      onCompleteExercise(true);
+    }
+  };
 
   const onAddSet = () => {
     dispatch(addSet(exercise.id));
@@ -55,7 +55,7 @@ export function ExerciseCard(props: ExerciseCardProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="p-2 md:overflow-y-auto custom-scrollbar overflow-x-hidden">
-        <ExerciseSets exercise={exercise} />
+        <ExerciseSets exercise={exercise} onCompleteSet={onCompleteSet} />
       </CardContent>
       <CardFooter className="flex flex-col justify-between items-start gap-2">
         <Button onClick={onAddSet}>Add Set</Button>

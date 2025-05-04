@@ -1,4 +1,4 @@
-import { ActiveExercise } from '@/types/exercise';
+import { ExerciseInputData } from '@/types/exercise';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { AddExerciseForm } from './AddExerciseForm';
@@ -6,7 +6,7 @@ import { AddExerciseForm } from './AddExerciseForm';
 interface AddExerciseDialogProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  onAddExercise: (exercise: ActiveExercise) => void;
+  onAddExercise: (data: ExerciseInputData) => void;
 }
 
 export function AddExerciseDialog(props: AddExerciseDialogProps) {

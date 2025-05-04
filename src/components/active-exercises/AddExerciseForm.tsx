@@ -1,59 +1,39 @@
 import { cn } from '@/lib/utils';
-import { ActiveExercise } from '@/types/exercise';
+import { ExerciseInputData, ExerciseInputSchema } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { nanoid } from '@reduxjs/toolkit';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
 
 interface AddExerciseFormProps {
   className?: string;
-  onSubmit: (data: ActiveExercise) => void;
+  onSubmit: (data: ExerciseInputData) => void;
 }
-
-const ExerciseInputSchema = z.object({
-  name: z.string().min(5, { message: 'Name must be at least 5 characters long' }),
-  totalSets: z.number().min(1, { message: 'Sets must be at least 1' }),
-  // reps: z.number().min(1, { message: 'Reps must be at least 1' }),
-  // weight: z.number().min(1, { message: 'Weight must be at least 1' }).optional(),
-});
-
-type ExerciseInput = z.infer<typeof ExerciseInputSchema>;
 
 export function AddExerciseForm(props: AddExerciseFormProps) {
   const { className, onSubmit } = props;
 
-  const form = useForm<ExerciseInput>({
+  const form = useForm<ExerciseInputData>({
     resolver: zodResolver(ExerciseInputSchema),
     mode: 'onChange',
     defaultValues: {
       name: '',
       totalSets: 4,
-      // reps: 8,
-      // weight: 1,
     },
   });
 
-  const handleNumericInputChange = (value: string, field: keyof ExerciseInput) => {
+  const handleTotalSetsChange = (value: string) => {
     const parsedValue = parseInt(value, 10);
-    form.setValue(field, parsedValue);
+    form.setValue('totalSets', parsedValue);
+  };
+
+  const submitHandler = (data: ExerciseInputData) => {
+    onSubmit(data);
+    form.reset();
   };
 
   const isFormDisabled = !form.formState.isDirty || !form.formState.isValid;
-
-  const submitHandler = (data: ExerciseInput) => {
-    const newExercise: ActiveExercise = {
-      ...data,
-      status: 'active',
-      currentSet: 0,
-      id: nanoid(),
-      sets: [],
-    };
-    onSubmit(newExercise);
-    form.reset();
-  };
 
   return (
     <Form {...form}>
@@ -86,51 +66,13 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
                   type="number"
                   placeholder="Total Sets"
                   {...field}
-                  onChange={(e) => handleNumericInputChange(e.target.value, 'totalSets')}
+                  onChange={(e) => handleTotalSetsChange(e.target.value)}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        {/* <FormField
-          control={form.control}
-          name="reps"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Reps (*)</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder="Reps"
-                  {...field}
-                  onChange={(e) => handleNumericInputChange(e.target.value, 'reps')}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="weight"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Weight</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder="Weight"
-                  {...field}
-                  onChange={(e) => handleNumericInputChange(e.target.value, 'weight')}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
 
         <Button type="submit" className="w-full" disabled={isFormDisabled}>
           Add Exercise
