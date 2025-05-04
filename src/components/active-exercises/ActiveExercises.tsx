@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addExercise, selectActiveExercises } from '@/redux/slices/exercisesSlice';
-import { IExercise } from '@/types/exercise';
+import { ActiveExercise } from '@/types/exercise';
 import { useState } from 'react';
 import { AddExerciseDialog } from './AddExerciseDialog';
 import { ExerciseGrid } from './ExerciseGrid';
@@ -60,9 +60,9 @@ export function ActiveExercises() {
   const [addExerciseDialogOpen, setAddExerciseDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
 
-  const activeExercises = useAppSelector(selectActiveExercises);
+  const activeExercises: ActiveExercise[] = useAppSelector(selectActiveExercises);
 
-  const handleAddExercise = (exercise: IExercise) => {
+  const handleAddExercise = (exercise: ActiveExercise) => {
     dispatch(addExercise(exercise));
     setAddExerciseDialogOpen(false);
   };

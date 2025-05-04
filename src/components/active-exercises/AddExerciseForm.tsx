@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { IExercise } from '@/types/exercise';
+import { ActiveExercise } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { nanoid } from '@reduxjs/toolkit';
 import { useForm } from 'react-hook-form';
@@ -8,9 +8,9 @@ import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
 
-interface ExerciseFormProps {
+interface AddExerciseFormProps {
   className?: string;
-  onSubmit: (data: IExercise) => void;
+  onSubmit: (data: ActiveExercise) => void;
 }
 
 const ExerciseInputSchema = z.object({
@@ -22,7 +22,7 @@ const ExerciseInputSchema = z.object({
 
 type ExerciseInput = z.infer<typeof ExerciseInputSchema>;
 
-export function ExerciseForm(props: ExerciseFormProps) {
+export function AddExerciseForm(props: AddExerciseFormProps) {
   const { className, onSubmit } = props;
 
   const form = useForm<ExerciseInput>({
@@ -44,7 +44,7 @@ export function ExerciseForm(props: ExerciseFormProps) {
   const isFormDisabled = !form.formState.isDirty || !form.formState.isValid;
 
   const submitHandler = (data: ExerciseInput) => {
-    const newExercise: IExercise = {
+    const newExercise: ActiveExercise = {
       ...data,
       weight: data.weight || undefined,
       status: 'active',

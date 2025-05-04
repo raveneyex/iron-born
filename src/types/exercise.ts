@@ -8,12 +8,12 @@ type BaseExercise = {
   weight?: number;
 };
 
-type ActiveExercise = BaseExercise & {
+export type ActiveExercise = BaseExercise & {
   status: 'active';
   currentSet: number;
 };
 
-type CompletedExercise = BaseExercise & {
+export type CompletedExercise = BaseExercise & {
   status: 'completed';
   dateCompleted: string;
 };

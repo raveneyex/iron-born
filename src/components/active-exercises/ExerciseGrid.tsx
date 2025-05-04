@@ -1,8 +1,8 @@
-import { IExercise } from '@/types/exercise';
+import { ActiveExercise } from '@/types/exercise';
 import { ExerciseCard } from './ExerciseCard';
 
 interface ExerciseGridProps {
-  exercises: IExercise[];
+  exercises: ActiveExercise[];
 }
 
 export function ExerciseGrid(props: ExerciseGridProps) {

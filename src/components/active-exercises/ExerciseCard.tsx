@@ -1,20 +1,23 @@
-import { IExercise } from '@/types/exercise';
+import { useAppDispatch } from '@/redux/hooks';
+import { completeSet } from '@/redux/slices/exercisesSlice';
+import { ActiveExercise } from '@/types/exercise';
 import { Label } from '@radix-ui/react-label';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Checkbox } from '../ui/checkbox';
 
 interface ExerciseCardProps {
-  exercise: IExercise;
+  exercise: ActiveExercise;
 }
 
 export function ExerciseCard(props: ExerciseCardProps) {
   const { exercise } = props;
-
   const completedExerciseCheckboxId = `${exercise.name}-completed`;
 
+  const dispatch = useAppDispatch();
+
   const onCompleteSet = () => {
-    console.log('Complete set');
+    dispatch(completeSet(exercise.id));
   };
 
   const onCompleteExercise = (checked: boolean) => {
@@ -31,7 +34,9 @@ export function ExerciseCard(props: ExerciseCardProps) {
         <CardTitle>{exercise.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>Sets: {exercise.sets}</p>
+        <p>
+          Sets: {exercise.currentSet}/{exercise.sets}
+        </p>
         <p>Reps: {exercise.reps}</p>
         <p>Weight: {exercise.weight}</p>
       </CardContent>

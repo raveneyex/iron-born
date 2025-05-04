@@ -1,12 +1,12 @@
-import { IExercise } from '@/types/exercise';
+import { ActiveExercise } from '@/types/exercise';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
-import { ExerciseForm } from './AddExerciseForm';
+import { AddExerciseForm } from './AddExerciseForm';
 
 interface AddExerciseDialogProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  onAddExercise: (exercise: IExercise) => void;
+  onAddExercise: (exercise: ActiveExercise) => void;
 }
 
 export function AddExerciseDialog(props: AddExerciseDialogProps) {
@@ -25,7 +25,7 @@ export function AddExerciseDialog(props: AddExerciseDialogProps) {
         </DialogHeader>
         <DialogDescription className="text-sm">Fields marked with (*) are mandatory.</DialogDescription>
 
-        <ExerciseForm onSubmit={onAddExercise} />
+        <AddExerciseForm onSubmit={onAddExercise} />
       </DialogContent>
     </Dialog>
   );
