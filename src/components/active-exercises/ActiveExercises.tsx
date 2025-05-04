@@ -5,57 +5,6 @@ import { useState } from 'react';
 import { AddExerciseDialog } from './AddExerciseDialog';
 import { ExerciseGrid } from './ExerciseGrid';
 
-// const exercises: IExercise[] = [
-//   {
-//     name: 'Bench Press',
-//     sets: 3,
-//     reps: 10,
-//     weight: 100,
-//   },
-//   {
-//     name: 'Squats',
-//     sets: 3,
-//     reps: 10,
-//     weight: 100,
-//   },
-//   {
-//     name: 'Deadlift',
-//     sets: 3,
-//     reps: 10,
-//     weight: 100,
-//   },
-//   {
-//     name: 'Pull-ups',
-//     sets: 3,
-//     reps: 10,
-//     weight: 100,
-//   },
-//   {
-//     name: 'Push-ups',
-//     sets: 3,
-//     reps: 10,
-//     weight: 100,
-//   },
-//   {
-//     name: 'Bicep Curls',
-//     sets: 3,
-//     reps: 10,
-//     weight: 100,
-//   },
-//   {
-//     name: 'Triceps Extension',
-//     sets: 3,
-//     reps: 10,
-//     weight: 100,
-//   },
-//   {
-//     name: 'Lateral Raises',
-//     sets: 3,
-//     reps: 10,
-//     weight: 100,
-//   },
-// ];
-
 export function ActiveExercises() {
   const [addExerciseDialogOpen, setAddExerciseDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
