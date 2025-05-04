@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { changeWeightUnits, selectWeightUnits } from '@/redux/slices/exercisesSlice';
 import { ExerciseSet, ExerciseSetInputData, ExerciseSetSchema, WeightUnits } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CheckIcon } from 'lucide-react';
@@ -5,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { WeightUnitsSelect } from '../weight-units-select/WeightUnitsSelect';
 
 export interface ExerciseSetRowProps {
   exerciseId: string;
@@ -15,34 +17,34 @@ export interface ExerciseSetRowProps {
 
 export function ExerciseSetRow(props: ExerciseSetRowProps) {
   const { exerciseId, set, onCompleteSet } = props;
+  const dispatch = useAppDispatch();
+
+  const weightUnits = useAppSelector((state) => selectWeightUnits(state, exerciseId));
 
   const form = useForm<ExerciseSetInputData>({
     resolver: zodResolver(ExerciseSetSchema),
     mode: 'onChange',
     defaultValues: {
       reps: set.reps,
-      weight: {
-        weight: 10,
-        units: 'kg',
-      },
+      weight: set.weight,
       completed: false,
     },
   });
 
   const handleWeightChange = (value: string) => {
-    form.setValue('weight.weight', parseInt(value, 10));
+    form.setValue('weight', parseInt(value, 10));
   };
 
   const handleRepsChange = (value: string) => {
     form.setValue('reps', parseInt(value, 10));
   };
 
-  const handleUnitsChange = (value: string) => {
-    form.setValue('weight.units', value as WeightUnits);
-  };
-
   const handleCompletedSet = (data: ExerciseSetInputData) => {
     onCompleteSet({ exerciseId: exerciseId, setId: set.id, data });
+  };
+
+  const handleUnitsChange = (value: WeightUnits) => {
+    dispatch(changeWeightUnits({ exerciseId, weightUnits: value }));
   };
 
   return (
@@ -71,7 +73,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
 
         <FormField
           control={form.control}
-          name="weight.weight"
+          name="weight"
           render={({ field }) => (
             <FormItem className="contents">
               <FormLabel className="hidden">Weight</FormLabel>
@@ -90,25 +92,10 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="weight.units"
-          render={({ field }) => (
-            <FormItem className="contents">
-              <FormLabel className="hidden">Units</FormLabel>
-              <Select onValueChange={handleUnitsChange} defaultValue={field.value} disabled={set.completed}>
-                <SelectTrigger className="w-20">
-                  <SelectValue placeholder="Weight Units" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="kg">kg</SelectItem>
-                  <SelectItem value="lbs">lbs</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormItem className="contents">
+          <FormLabel className="hidden">Weight Units</FormLabel>
+          <WeightUnitsSelect weightUnits={weightUnits} onChange={handleUnitsChange} className="w-20" />
+        </FormItem>
 
         <Button type="submit" size="icon" className="justify-self-center" disabled={set.completed}>
           <CheckIcon className="w-4 h-4" />

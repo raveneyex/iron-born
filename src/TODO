@@ -1,4 +1,7 @@
-- Add Set with weight input and button instead of plain number.
-- Add units for the weight input
+
+- add ability to remove Set
+- do not automatically complete exercise on set completion
+- add ability to uncomplete set
+  - change button icon
 - Make sure all type imports are marked as type
 - Ensure naming consistency

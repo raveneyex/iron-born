@@ -55,13 +55,13 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
     accessorKey: 'weight',
     cell: ({ row }) => {
       console.log('Row', row);
-      const originalWeight = row.original.sets.reduce((acc, set) => acc + (set.weight?.weight ?? 0), 0);
+      const originalWeight = row.original.sets.reduce((acc, set) => acc + set.weight, 0);
       if (!originalWeight) {
         return <div>--</div>;
       }
       return (
         <div>
-          {originalWeight} {row.original.sets[0].weight?.units}
+          {originalWeight} {row.original.weightUnits}
         </div>
       );
     },

@@ -1,10 +1,11 @@
 import { cn } from '@/lib/utils';
-import { ExerciseInputData, ExerciseInputSchema } from '@/types/exercise';
+import { ExerciseInputData, ExerciseInputSchema, WeightUnits } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
+import { WeightUnitsSelect } from '../weight-units-select/WeightUnitsSelect';
 
 interface AddExerciseFormProps {
   className?: string;
@@ -20,12 +21,17 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
     defaultValues: {
       name: '',
       totalSets: 4,
+      weightUnits: 'kg',
     },
   });
 
   const handleTotalSetsChange = (value: string) => {
     const parsedValue = parseInt(value, 10);
     form.setValue('totalSets', parsedValue);
+  };
+
+  const handleUnitsChange = (value: string) => {
+    form.setValue('weightUnits', value as WeightUnits);
   };
 
   const submitHandler = (data: ExerciseInputData) => {
@@ -68,6 +74,20 @@ export function AddExerciseForm(props: AddExerciseFormProps) {
                   {...field}
                   onChange={(e) => handleTotalSetsChange(e.target.value)}
                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="weightUnits"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Weight Units</FormLabel>
+              <FormControl>
+                <WeightUnitsSelect weightUnits={field.value} onChange={handleUnitsChange} className="w-full" />
               </FormControl>
               <FormMessage />
             </FormItem>

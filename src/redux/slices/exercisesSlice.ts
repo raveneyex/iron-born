@@ -6,6 +6,7 @@ import {
   ExerciseInputData,
   ExerciseSetInputData,
   IExercise,
+  WeightUnits,
 } from '@/types/exercise';
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -26,6 +27,15 @@ type CompleteSetPayload = {
   data: ExerciseSetInputData;
 };
 
+type ChangeWeightUnitsPayload = {
+  exerciseId: string;
+  weightUnits: WeightUnits;
+};
+
+function findExerciseIndex(exercises: IExercise[], exerciseId: string) {
+  return exercises.findIndex((exercise) => exercise.id === exerciseId);
+}
+
 export const exercisesSlice = createSlice({
   name: 'exercises',
   initialState,
@@ -36,7 +46,7 @@ export const exercisesSlice = createSlice({
       storageService.setExercises(state.exercises);
     },
     addSet: (state, action: PayloadAction<string>) => {
-      const index = state.exercises.findIndex((exercise) => exercise.id === action.payload);
+      const index = findExerciseIndex(state.exercises, action.payload);
       if (index !== -1) {
         const exercise = state.exercises[index];
         exercise.totalSets++;
@@ -44,9 +54,16 @@ export const exercisesSlice = createSlice({
       }
       storageService.setExercises(state.exercises);
     },
+    changeWeightUnits: (state, action: PayloadAction<ChangeWeightUnitsPayload>) => {
+      const { exerciseId, weightUnits } = action.payload;
+      const index = findExerciseIndex(state.exercises, exerciseId);
+      if (index !== -1) {
+        state.exercises[index].weightUnits = weightUnits;
+      }
+    },
     completeSet: (state, action: PayloadAction<CompleteSetPayload>) => {
       const { exerciseId, setId, data } = action.payload;
-      const index = state.exercises.findIndex((exercise) => exercise.id === exerciseId);
+      const index = findExerciseIndex(state.exercises, exerciseId);
 
       if (index !== -1) {
         const exercise = state.exercises[index];
@@ -68,7 +85,7 @@ export const exercisesSlice = createSlice({
       storageService.setExercises(state.exercises);
     },
     completeExercise: (state, action: PayloadAction<string>) => {
-      const index = state.exercises.findIndex((exercise) => exercise.id === action.payload);
+      const index = findExerciseIndex(state.exercises, action.payload);
       if (index !== -1) {
         const exercise = state.exercises[index];
         state.exercises[index] = {
@@ -89,9 +106,16 @@ export const exercisesSlice = createSlice({
       (state) => state.exercises,
       (exercises) => exercises.filter((exercise: IExercise) => exercise.status === 'completed')
     ),
+    selectWeightUnits: (state, exerciseId: string) => {
+      const exercise = state.exercises.find((exercise: IExercise) => exercise.id === exerciseId);
+      if (!exercise) {
+        return 'kg';
+      }
+      return exercise.weightUnits;
+    },
   },
 });
 
-export const { addExercise, addSet, completeSet, completeExercise } = exercisesSlice.actions;
+export const { addExercise, addSet, completeSet, completeExercise, changeWeightUnits } = exercisesSlice.actions;
 
-export const { selectActiveExercises, selectCompletedExercises } = exercisesSlice.selectors;
+export const { selectActiveExercises, selectCompletedExercises, selectWeightUnits } = exercisesSlice.selectors;

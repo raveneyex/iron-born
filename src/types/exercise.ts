@@ -7,16 +7,9 @@ const WeightUnitsSchema = z.enum(['kg', 'lbs']);
 
 export type WeightUnits = z.infer<typeof WeightUnitsSchema>;
 
-const WeightSchema = z.object({
-  weight: z.number().min(1, { message: 'Weight must be at least 1' }).optional(),
-  units: WeightUnitsSchema.optional(),
-});
-
-export type WeightData = z.infer<typeof WeightSchema>;
-
 export const ExerciseSetSchema = z.object({
-  reps: z.number().min(1, { message: 'Reps must be at least 1' }).optional(),
-  weight: WeightSchema.optional(),
+  reps: z.number().min(1, { message: 'Reps must be at least 1' }),
+  weight: z.number().min(1, { message: 'Weight must be at least 1' }),
   completed: z.boolean(),
 });
 
@@ -29,6 +22,7 @@ export type ExerciseSet = ExerciseSetInputData & {
 export const ExerciseInputSchema = z.object({
   name: z.string().min(5, { message: 'Name must be at least 5 characters long' }),
   totalSets: z.number().min(1, { message: 'Sets must be at least 1' }),
+  weightUnits: WeightUnitsSchema,
 });
 
 export type ExerciseInputData = z.infer<typeof ExerciseInputSchema>;
@@ -38,6 +32,7 @@ type BaseExercise = {
   name: string;
   totalSets: number;
   sets: ExerciseSet[];
+  weightUnits: WeightUnits;
 };
 
 export type ActiveExercise = BaseExercise & {
@@ -56,7 +51,7 @@ export function createExerciseSet(): ExerciseSet {
   return {
     id: nanoid(),
     reps: 8,
-    weight: { weight: 10, units: 'kg' },
+    weight: 10,
     completed: false,
   };
 }
