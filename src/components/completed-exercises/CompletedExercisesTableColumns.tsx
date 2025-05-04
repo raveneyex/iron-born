@@ -27,7 +27,7 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
     },
     accessorKey: 'sets',
     cell: ({ row }) => {
-      return <div>{row.original.sets.length}</div>;
+      return <div>{row.original.totalSets}</div>;
     },
   },
   {
@@ -39,9 +39,9 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
         </Button>
       );
     },
-    accessorKey: 'reps',
+    accessorKey: 'totalReps',
     cell: ({ row }) => {
-      return <div>{row.original.sets.reduce((acc, set) => acc + (set.reps ?? 0), 0)}</div>;
+      return <div>{row.original.totalReps}</div>;
     },
   },
   {
@@ -53,15 +53,11 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
         </Button>
       );
     },
-    accessorKey: 'weight',
+    accessorKey: 'totalWeight',
     cell: ({ row }) => {
-      const originalWeight = row.original.sets.reduce((acc, set) => acc + set.weight, 0);
-      if (!originalWeight) {
-        return <div>--</div>;
-      }
       return (
         <div>
-          {originalWeight} {row.original.weightUnits}
+          {row.original.totalWeight} {row.original.weightUnits}
         </div>
       );
     },

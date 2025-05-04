@@ -43,6 +43,8 @@ export type ActiveExercise = BaseExercise & {
 export type CompletedExercise = BaseExercise & {
   status: 'completed';
   dateCompleted: number;
+  totalReps: number;
+  totalWeight: number;
 };
 
 export type IExercise = ActiveExercise | CompletedExercise;

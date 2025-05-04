@@ -137,6 +137,8 @@ export const exercisesSlice = createSlice({
           ...exercise,
           status: 'completed',
           dateCompleted: Date.now(),
+          totalReps: exercise.sets.reduce((acc, set) => acc + (set.reps ?? 0), 0),
+          totalWeight: exercise.sets.reduce((acc, set) => acc + (set.weight ?? 0), 0),
         };
       }
       storageService.setExercises(state.exercises);
