@@ -5,6 +5,7 @@ import { RequestStatuses } from '@/types/requestStatuses';
 import { useEffect } from 'react';
 import { QuotesCarousel } from './QuotesCarousel';
 import { RotatingQuotesSkeleton } from './RotatingQuotesSkeleton';
+
 export function RotatingQuotes() {
   const dispatch = useAppDispatch();
 
@@ -14,8 +15,10 @@ export function RotatingQuotes() {
   const isLoading = status === RequestStatuses.idle || status === RequestStatuses.loading;
 
   useEffect(() => {
-    dispatch(fetchQuotes());
-  }, [dispatch]);
+    if (status === RequestStatuses.idle) {
+      dispatch(fetchQuotes());
+    }
+  }, [dispatch, status]);
 
   return (
     <div className="w-full md:max-w-sm py-5">
