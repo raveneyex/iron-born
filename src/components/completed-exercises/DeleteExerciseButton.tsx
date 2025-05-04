@@ -7,10 +7,11 @@ import { Button } from '../ui/button';
 interface DeleteExerciseButtonProps {
   exerciseId: string;
   exerciseName: string;
+  variant?: 'icon' | 'default';
 }
 
 export function DeleteExerciseButton(props: DeleteExerciseButtonProps) {
-  const { exerciseId, exerciseName } = props;
+  const { exerciseId, exerciseName, variant = 'default' } = props;
 
   const dispatch = useAppDispatch();
 
@@ -19,9 +20,13 @@ export function DeleteExerciseButton(props: DeleteExerciseButtonProps) {
     toast.success(`${exerciseName} deleted`);
   };
 
+  const buttonSize = variant === 'icon' ? 'icon' : 'default';
+
+  const buttonVariant = variant === 'icon' ? 'outline' : 'destructive';
+
   return (
-    <Button variant="outline" size="icon" onClick={handleDeleteExercise}>
-      <TrashIcon className="w-4 h-4" />
+    <Button variant={buttonVariant} size={buttonSize} onClick={handleDeleteExercise}>
+      {variant === 'icon' ? <TrashIcon className="w-4 h-4" /> : 'Delete Exercise'}
     </Button>
   );
 }

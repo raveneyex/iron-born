@@ -88,7 +88,7 @@ export const completedExercisesTableColumns: ColumnDef<CompletedExercise>[] = [
   {
     id: 'delete',
     cell: ({ row }) => {
-      return <DeleteExerciseButton exerciseId={row.original.id} exerciseName={row.original.name} />;
+      return <DeleteExerciseButton exerciseId={row.original.id} exerciseName={row.original.name} variant="icon" />;
     },
   },
 ];

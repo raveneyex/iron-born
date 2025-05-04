@@ -10,6 +10,7 @@ import {
 import { ActiveExercise, ExerciseSetInputData, WeightUnits } from '@/types/exercise';
 import { Label } from '@radix-ui/react-label';
 import { toast } from 'sonner';
+import { DeleteExerciseButton } from '../completed-exercises/DeleteExerciseButton';
 import { ExerciseSets } from '../exercise-sets/ExerciseSets';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
@@ -80,10 +81,15 @@ export function ExerciseCard(props: ExerciseCardProps) {
         />
       </CardContent>
       <CardFooter className="flex flex-col justify-between items-start gap-2">
-        <Button onClick={onAddSet}>Add Set</Button>
+        <div className="flex items-center gap-2">
+          <Button onClick={onAddSet}>Add Set</Button>
+          <DeleteExerciseButton exerciseId={exercise.id} exerciseName={exercise.name} variant="default" />
+        </div>
         <div className="flex items-center gap-2">
           <Checkbox id={completedExerciseCheckboxId} onCheckedChange={onCompleteExercise} />
-          <Label htmlFor={completedExerciseCheckboxId}>Mark as completed</Label>
+          <Label className="text-base font-bold" htmlFor={completedExerciseCheckboxId}>
+            Mark as completed
+          </Label>
         </div>
       </CardFooter>
     </Card>
