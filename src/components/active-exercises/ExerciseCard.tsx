@@ -1,6 +1,13 @@
 import { useAppDispatch } from '@/redux/hooks';
-import { addSet, completeExercise, completeSet, uncompleteSet } from '@/redux/slices/exercisesSlice';
-import { ActiveExercise, ExerciseSetInputData } from '@/types/exercise';
+import {
+  addSet,
+  changeWeightUnits,
+  completeExercise,
+  completeSet,
+  deleteSet,
+  uncompleteSet,
+} from '@/redux/slices/exercisesSlice';
+import { ActiveExercise, ExerciseSetInputData, WeightUnits } from '@/types/exercise';
 import { Label } from '@radix-ui/react-label';
 import { toast } from 'sonner';
 import { ExerciseSets } from '../exercise-sets/ExerciseSets';
@@ -38,6 +45,14 @@ export function ExerciseCard(props: ExerciseCardProps) {
     }
   };
 
+  const onUnitsChange = (params: { exerciseId: string; weightUnits: WeightUnits }) => {
+    dispatch(changeWeightUnits(params));
+  };
+
+  const onDeleteSet = (params: { exerciseId: string; setId: string; setIsCompleted: boolean }) => {
+    dispatch(deleteSet(params));
+  };
+
   const setsProgress = (exercise.currentSet / exercise.totalSets) * 100;
 
   return (
@@ -56,7 +71,13 @@ export function ExerciseCard(props: ExerciseCardProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="p-2 md:overflow-y-auto custom-scrollbar overflow-x-hidden">
-        <ExerciseSets exercise={exercise} onCompleteSet={onCompleteSet} onUncompleteSet={onUncompleteSet} />
+        <ExerciseSets
+          exercise={exercise}
+          onCompleteSet={onCompleteSet}
+          onUncompleteSet={onUncompleteSet}
+          onDeleteSet={onDeleteSet}
+          onUnitsChange={onUnitsChange}
+        />
       </CardContent>
       <CardFooter className="flex flex-col justify-between items-start gap-2">
         <Button onClick={onAddSet}>Add Set</Button>

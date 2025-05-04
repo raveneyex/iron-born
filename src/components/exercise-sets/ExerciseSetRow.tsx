@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { changeWeightUnits, selectWeightUnits } from '@/redux/slices/exercisesSlice';
+import { useAppSelector } from '@/redux/hooks';
+import { selectWeightUnits } from '@/redux/slices/exercisesSlice';
 import { ExerciseSet, ExerciseSetInputData, ExerciseSetSchema, WeightUnits } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CheckIcon } from 'lucide-react';
+import { CheckIcon, TrashIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
@@ -14,11 +14,12 @@ export interface ExerciseSetRowProps {
   set: ExerciseSet;
   onCompleteSet: (params: { exerciseId: string; setId: string; data: ExerciseSetInputData }) => void;
   onUncompleteSet: (params: { exerciseId: string; setId: string }) => void;
+  onDeleteSet: (params: { exerciseId: string; setId: string; setIsCompleted: boolean }) => void;
+  onUnitsChange: (params: { exerciseId: string; weightUnits: WeightUnits }) => void;
 }
 
 export function ExerciseSetRow(props: ExerciseSetRowProps) {
-  const { exerciseId, set, onCompleteSet, onUncompleteSet } = props;
-  const dispatch = useAppDispatch();
+  const { exerciseId, set, onCompleteSet, onUncompleteSet, onDeleteSet, onUnitsChange } = props;
 
   const weightUnits = useAppSelector((state) => selectWeightUnits(state, exerciseId));
 
@@ -49,7 +50,11 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
   };
 
   const handleUnitsChange = (value: WeightUnits) => {
-    dispatch(changeWeightUnits({ exerciseId, weightUnits: value }));
+    onUnitsChange({ exerciseId: exerciseId, weightUnits: value });
+  };
+
+  const handleDeleteSet = () => {
+    onDeleteSet({ exerciseId: exerciseId, setId: set.id, setIsCompleted: set.completed });
   };
 
   return (
@@ -101,6 +106,10 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
           <FormLabel className="hidden">Weight Units</FormLabel>
           <WeightUnitsSelect weightUnits={weightUnits} onChange={handleUnitsChange} className="w-20" />
         </FormItem>
+
+        <Button type="button" size="icon" className="justify-self-center" onClick={handleDeleteSet}>
+          <TrashIcon className="w-4 h-4" />
+        </Button>
 
         <Button type="submit" size="icon" className="justify-self-center">
           <CheckIcon className="w-4 h-4" />
