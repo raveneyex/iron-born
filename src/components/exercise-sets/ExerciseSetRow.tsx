@@ -74,7 +74,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
                 <Input
                   type="number"
                   placeholder="Reps"
-                  className="w-20"
+                  className="w-16 md:w-20"
                   {...field}
                   onChange={(e) => handleRepsChange(e.target.value)}
                   disabled={set.completed}
@@ -95,7 +95,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
                 <Input
                   type="number"
                   placeholder="Weight"
-                  className="w-20"
+                  className="w-16 md:w-20"
                   {...field}
                   disabled={set.completed}
                   onChange={(e) => handleWeightChange(e.target.value)}
@@ -108,7 +108,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
 
         <FormItem className="contents">
           <FormLabel className="sr-only">Weight Units</FormLabel>
-          <WeightUnitsSelect weightUnits={weightUnits} onChange={handleUnitsChange} className="w-20" />
+          <WeightUnitsSelect weightUnits={weightUnits} onChange={handleUnitsChange} className="w-16 md:w-20" />
         </FormItem>
 
         <Button name="delete-set" type="button" size="icon" className="justify-self-center" onClick={handleDeleteSet}>
