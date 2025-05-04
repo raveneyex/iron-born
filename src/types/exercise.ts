@@ -55,7 +55,7 @@ export type IExercise = ActiveExercise | CompletedExercise;
 export function createExerciseSet(): ExerciseSet {
   return {
     id: nanoid(),
-    reps: 3,
+    reps: 8,
     weight: { weight: 10, units: 'kg' },
     completed: false,
   };

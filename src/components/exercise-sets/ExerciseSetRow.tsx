@@ -20,7 +20,7 @@ export function ExerciseSetRow(props: ExerciseSetRowProps) {
     resolver: zodResolver(ExerciseSetSchema),
     mode: 'onChange',
     defaultValues: {
-      reps: 3,
+      reps: set.reps,
       weight: {
         weight: 10,
         units: 'kg',
