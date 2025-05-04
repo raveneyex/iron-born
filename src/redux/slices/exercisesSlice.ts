@@ -41,7 +41,7 @@ export const exercisesSlice = createSlice({
         state.exercises[index] = {
           ...exercise,
           status: 'completed',
-          dateCompleted: Date.now(),
+          dateCompleted: Date.now() - 1000 * 60 * 60 * 24,
         };
       }
       storageService.setExercises(state.exercises);

@@ -18,7 +18,7 @@ export class QuotesService {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(quotes as IQuote[]);
-      }, 5000);
+      }, 2000);
     });
   }
 }
