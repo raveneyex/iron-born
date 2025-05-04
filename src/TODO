@@ -1,0 +1,3 @@
+- Add Set with weight input and button instead of plain number.
+- Make sure all type imports are marked as type
+- Ensure naming consistency
