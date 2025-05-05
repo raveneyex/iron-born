@@ -9,7 +9,7 @@
   },
   "main": "electron.js",
   "scripts": {
-    "electron": "electron .",
+    "electron": "npm run build && electron .",
     "start": "npm run build && npm run preview",
     "dev": "vite",
     "build": "tsc -b && vite build",
