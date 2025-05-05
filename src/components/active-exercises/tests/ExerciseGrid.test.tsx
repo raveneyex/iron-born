@@ -1,12 +1,15 @@
-import { renderWithRedux } from '@/lib/testUtils';
-import { exercisesSlice } from '@/redux/slices/exercisesSlice';
-import { ActiveExercise } from '@/types/exercise';
 import { configureStore } from '@reduxjs/toolkit';
 import { render, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { toast } from 'sonner';
 import { describe, expect, it } from 'vitest';
+
 import { ExerciseGrid } from '../ExerciseGrid';
+
+import type { ActiveExercise } from '@/types/exercise';
+
+import { renderWithRedux } from '@/lib/testUtils';
+import { exercisesSlice } from '@/redux/slices/exercisesSlice';
 
 vi.mock('sonner', () => ({
   toast: {

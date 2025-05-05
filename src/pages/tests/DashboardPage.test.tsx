@@ -1,11 +1,13 @@
-import { renderWithRedux } from '@/lib/testUtils';
-import { IExercise, WeightUnits } from '@/types/exercise';
-import { IQuote } from '@/types/quote';
-import { RequestStatuses } from '@/types/requestStatuses';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import { makeStore } from '../../redux/store';
-import { DashboardPage } from '../DashboardPage';
+
+import type { IExercise, WeightUnits } from '@/types/exercise';
+import type { IQuote } from '@/types/quote';
+
+import { renderWithRedux } from '@/lib/testUtils';
+import { DashboardPage } from '@/pages/DashboardPage';
+import { makeStore } from '@/redux/store';
+import { RequestStatuses } from '@/types/requestStatuses';
 
 /*
  * Mock the RotatingQuotes component due to errors thrown by the Autoplay plugin

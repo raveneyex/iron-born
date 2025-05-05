@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import * as reactRouterModule from 'react-router';
 import { describe, expect, it } from 'vitest';
+
 import { MainNav } from '../MainNav';
 
 const { Route, Routes, MemoryRouter } = reactRouterModule;

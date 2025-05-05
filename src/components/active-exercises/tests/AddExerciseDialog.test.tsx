@@ -1,5 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import { vi } from 'vitest';
+
 import { AddExerciseDialog } from '../AddExerciseDialog';
 
 describe('AddExerciseDialog', () => {

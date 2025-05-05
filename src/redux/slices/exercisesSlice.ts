@@ -1,14 +1,10 @@
+import { createSelector, createSlice } from '@reduxjs/toolkit';
+
+import type { ActiveExercise, ExerciseInputData, ExerciseSetInputData, IExercise, WeightUnits } from '@/types/exercise';
+import type { PayloadAction } from '@reduxjs/toolkit';
+
 import { StorageService } from '@/services/storageService';
-import {
-  ActiveExercise,
-  createExercise,
-  createExerciseSet,
-  ExerciseInputData,
-  ExerciseSetInputData,
-  IExercise,
-  WeightUnits,
-} from '@/types/exercise';
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createExercise, createExerciseSet } from '@/types/exercise';
 
 const storageService = StorageService.getInstance();
 const storedExercises: IExercise[] = storageService.getExercises();

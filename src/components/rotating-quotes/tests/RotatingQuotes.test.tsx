@@ -1,10 +1,13 @@
-import { renderWithRedux } from '@/lib/testUtils';
-import { makeStore } from '@/redux/store';
-import { IQuote } from '@/types/quote';
-import { RequestStatuses } from '@/types/requestStatuses';
 import { describe, expect, it, vi } from 'vitest';
+
 import { QuotesCarousel } from '../QuotesCarousel';
 import { RotatingQuotes } from '../RotatingQuotes';
+
+import type { IQuote } from '@/types/quote';
+
+import { renderWithRedux } from '@/lib/testUtils';
+import { makeStore } from '@/redux/store';
+import { RequestStatuses } from '@/types/requestStatuses';
 
 vi.mock('@/components/rotating-quotes/QuotesCarousel', () => ({
   QuotesCarousel: vi.fn(() => <div data-testid="quotes-carousel" />),

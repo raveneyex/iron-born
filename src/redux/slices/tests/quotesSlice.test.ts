@@ -1,7 +1,10 @@
-import { IQuote } from '@/types/quote';
-import { RequestStatuses } from '@/types/requestStatuses';
 import { describe, expect, it, vi } from 'vitest';
+
 import { fetchQuotes, quotesSlice } from '../quotesSlice';
+
+import type { IQuote } from '@/types/quote';
+
+import { RequestStatuses } from '@/types/requestStatuses';
 
 vi.mock('@/services/quotesService', () => ({
   QuotesService: {

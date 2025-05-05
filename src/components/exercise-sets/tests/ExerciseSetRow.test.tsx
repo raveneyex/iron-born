@@ -1,11 +1,14 @@
-import { renderWithRedux } from '@/lib/testUtils';
-import { exercisesSlice } from '@/redux/slices/exercisesSlice';
-import { IExercise } from '@/types/exercise';
 import { configureStore } from '@reduxjs/toolkit';
 import { fireEvent } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event/dist/cjs/setup/index.js';
+import { userEvent } from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+
 import { ExerciseSetRow } from '../ExerciseSetRow';
+
+import type { IExercise } from '@/types/exercise';
+
+import { renderWithRedux } from '@/lib/testUtils';
+import { exercisesSlice } from '@/redux/slices/exercisesSlice';
 
 const user = userEvent.setup();
 

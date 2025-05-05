@@ -2,9 +2,9 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router';
-import { store } from './redux/store.ts';
 
 import './index.css';
+import { store } from './redux/store.ts';
 import { AppRouter } from './router/AppRouter.tsx';
 
 const container = document.getElementById('root');

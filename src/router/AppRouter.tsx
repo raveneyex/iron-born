@@ -1,7 +1,8 @@
+import { Navigate, Route, Routes } from 'react-router';
+
 import { AppLayout } from '@/components/layout/AppLayout';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { HistoryPage } from '@/pages/HistoryPage';
-import { Navigate, Route, Routes } from 'react-router';
 
 export function AppRouter() {
   return (

@@ -1,4 +1,5 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
+
 import { exercisesSlice } from './slices/exercisesSlice';
 import { quotesSlice } from './slices/quotesSlice';
 

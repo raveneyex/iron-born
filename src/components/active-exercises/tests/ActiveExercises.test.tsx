@@ -1,10 +1,13 @@
-import { renderWithRedux } from '@/lib/testUtils';
-import { exercisesSlice } from '@/redux/slices/exercisesSlice';
-import { ActiveExercise } from '@/types/exercise';
 import { configureStore } from '@reduxjs/toolkit';
 import { fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
+
 import { ActiveExercises } from '../ActiveExercises';
+
+import type { ActiveExercise } from '@/types/exercise';
+
+import { renderWithRedux } from '@/lib/testUtils';
+import { exercisesSlice } from '@/redux/slices/exercisesSlice';
 
 vi.mock('../../services/storageService', () => ({
   StorageService: {

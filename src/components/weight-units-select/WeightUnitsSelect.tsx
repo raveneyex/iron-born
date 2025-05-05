@@ -1,5 +1,6 @@
-import { WeightUnits } from '@/types/exercise';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import type { WeightUnits } from '@/types/exercise';
+
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface WeightUnitsSelectProps {
   className?: string;

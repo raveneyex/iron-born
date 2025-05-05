@@ -1,9 +1,11 @@
-import { renderWithRedux } from '@/lib/testUtils';
-import { exercisesSlice } from '@/redux/slices/exercisesSlice';
-import { IExercise } from '@/types/exercise';
 import { configureStore } from '@reduxjs/toolkit';
 import { describe, expect, it, vi } from 'vitest';
-import { ExerciseSets } from '../ExerciseSets';
+
+import type { IExercise } from '@/types/exercise';
+
+import { ExerciseSets } from '@/components/exercise-sets/ExerciseSets';
+import { renderWithRedux } from '@/lib/testUtils';
+import { exercisesSlice } from '@/redux/slices/exercisesSlice';
 
 const mockExercise: IExercise = {
   id: 'exercise-1',

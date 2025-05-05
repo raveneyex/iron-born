@@ -1,5 +1,6 @@
-import { ActiveExercise } from '@/types/exercise';
 import { ExerciseCard } from './ExerciseCard';
+
+import type { ActiveExercise } from '@/types/exercise';
 
 interface ExerciseGridProps {
   exercises: ActiveExercise[];

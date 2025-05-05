@@ -1,11 +1,14 @@
-import { renderWithRedux } from '@/lib/testUtils';
-import { exercisesSlice } from '@/redux/slices/exercisesSlice';
-import { ActiveExercise, WeightUnits } from '@/types/exercise';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import { toast } from 'sonner';
 import { describe, expect, it, vi } from 'vitest';
+
 import { ExerciseCard } from '../ExerciseCard';
+
+import type { ActiveExercise, WeightUnits } from '@/types/exercise';
+
+import { renderWithRedux } from '@/lib/testUtils';
+import { exercisesSlice } from '@/redux/slices/exercisesSlice';
 
 vi.mock('sonner', () => ({
   toast: {

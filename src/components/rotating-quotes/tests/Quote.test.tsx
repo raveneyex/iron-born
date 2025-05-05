@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+
 import { Quote } from '../Quote';
 
 describe('Quote Component', () => {

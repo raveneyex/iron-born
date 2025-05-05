@@ -1,4 +1,5 @@
 import { Dumbbell } from 'lucide-react';
+
 import { MainNav } from './MainNav';
 import { ModeSwitcher } from './ModeSwitcher';
 

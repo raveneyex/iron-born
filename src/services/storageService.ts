@@ -1,4 +1,4 @@
-import { IExercise } from '@/types/exercise';
+import type { IExercise } from '@/types/exercise';
 
 export class StorageService {
   private static instance: StorageService;

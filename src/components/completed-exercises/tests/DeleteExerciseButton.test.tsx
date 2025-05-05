@@ -1,9 +1,11 @@
-import { renderWithRedux } from '@/lib/testUtils';
 import { configureStore } from '@reduxjs/toolkit';
 import { fireEvent } from '@testing-library/react';
 import { toast } from 'sonner';
 import { describe, expect, it, vi } from 'vitest';
+
 import { DeleteExerciseButton } from '../DeleteExerciseButton';
+
+import { renderWithRedux } from '@/lib/testUtils';
 
 // Mock the toast
 vi.mock('sonner', () => ({

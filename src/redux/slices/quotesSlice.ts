@@ -1,7 +1,10 @@
-import { QuotesService } from '@/services/quotesService';
-import { IQuote } from '@/types/quote';
-import { RequestStatus, RequestStatuses } from '@/types/requestStatuses';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import type { IQuote } from '@/types/quote';
+import type { RequestStatus } from '@/types/requestStatuses';
+
+import { QuotesService } from '@/services/quotesService';
+import { RequestStatuses } from '@/types/requestStatuses';
 
 export type QuotesSliceState = {
   quotes: IQuote[];

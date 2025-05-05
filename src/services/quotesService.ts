@@ -1,5 +1,6 @@
+import type { IQuote } from '@/types/quote';
+
 import quotes from '@/assets/quotes.json';
-import { IQuote } from '@/types/quote';
 
 export class QuotesService {
   private static instance: QuotesService;

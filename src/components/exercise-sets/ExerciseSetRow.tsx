@@ -1,13 +1,16 @@
-import { useAppSelector } from '@/redux/hooks';
-import { selectWeightUnits } from '@/redux/slices/exercisesSlice';
-import { ExerciseSet, ExerciseSetInputData, ExerciseSetSchema, WeightUnits } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CheckCheck, CheckIcon, TrashIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Button } from '../ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
-import { Input } from '../ui/input';
-import { WeightUnitsSelect } from '../weight-units-select/WeightUnitsSelect';
+
+import type { ExerciseSet, ExerciseSetInputData, WeightUnits } from '@/types/exercise';
+
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { WeightUnitsSelect } from '@/components/weight-units-select/WeightUnitsSelect';
+import { useAppSelector } from '@/redux/hooks';
+import { selectWeightUnits } from '@/redux/slices/exercisesSlice';
+import { ExerciseSetSchema } from '@/types/exercise';
 
 export interface ExerciseSetRowProps {
   exerciseId: string;

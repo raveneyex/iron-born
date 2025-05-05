@@ -1,11 +1,14 @@
-import { cn } from '@/lib/utils';
-import { ExerciseInputData, ExerciseInputSchema, WeightUnits } from '@/types/exercise';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Button } from '../ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
-import { Input } from '../ui/input';
-import { WeightUnitsSelect } from '../weight-units-select/WeightUnitsSelect';
+
+import type { ExerciseInputData, WeightUnits } from '@/types/exercise';
+
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { WeightUnitsSelect } from '@/components/weight-units-select/WeightUnitsSelect';
+import { cn } from '@/lib/utils';
+import { ExerciseInputSchema } from '@/types/exercise';
 
 interface AddExerciseFormProps {
   className?: string;

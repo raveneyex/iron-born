@@ -1,10 +1,13 @@
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { fetchQuotes, selectQuotes, selectStatus } from '@/redux/slices/quotesSlice';
-import type { IQuote } from '@/types/quote';
-import { RequestStatuses } from '@/types/requestStatuses';
 import { useEffect } from 'react';
+
 import { QuotesCarousel } from './QuotesCarousel';
 import { RotatingQuotesSkeleton } from './RotatingQuotesSkeleton';
+
+import type { IQuote } from '@/types/quote';
+
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { fetchQuotes, selectQuotes, selectStatus } from '@/redux/slices/quotesSlice';
+import { RequestStatuses } from '@/types/requestStatuses';
 
 export function RotatingQuotes() {
   const dispatch = useAppDispatch();

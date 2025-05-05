@@ -1,3 +1,14 @@
+import { Label } from '@radix-ui/react-label';
+import { toast } from 'sonner';
+
+import type { ActiveExercise, ExerciseSetInputData, WeightUnits } from '@/types/exercise';
+
+import { DeleteExerciseButton } from '@/components/completed-exercises/DeleteExerciseButton';
+import { ExerciseSets } from '@/components/exercise-sets/ExerciseSets';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Progress } from '@/components/ui/progress';
 import { useAppDispatch } from '@/redux/hooks';
 import {
   addSet,
@@ -7,15 +18,6 @@ import {
   deleteSet,
   uncompleteSet,
 } from '@/redux/slices/exercisesSlice';
-import { ActiveExercise, ExerciseSetInputData, WeightUnits } from '@/types/exercise';
-import { Label } from '@radix-ui/react-label';
-import { toast } from 'sonner';
-import { DeleteExerciseButton } from '../completed-exercises/DeleteExerciseButton';
-import { ExerciseSets } from '../exercise-sets/ExerciseSets';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { Checkbox } from '../ui/checkbox';
-import { Progress } from '../ui/progress';
 
 interface ExerciseCardProps {
   exercise: ActiveExercise;

@@ -1,8 +1,9 @@
 import { MoonIcon, SunIcon } from 'lucide-react';
 
-import { Button } from '../ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { useTheme } from './ThemeProvider';
+
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export function ModeSwitcher() {
   const { theme, setTheme } = useTheme();

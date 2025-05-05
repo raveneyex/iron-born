@@ -1,6 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { AddExerciseForm } from '../AddExerciseForm';
 
 describe('AddExerciseForm', () => {

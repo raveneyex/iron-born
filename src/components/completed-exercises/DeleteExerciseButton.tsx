@@ -1,8 +1,9 @@
-import { useAppDispatch } from '@/redux/hooks';
-import { deleteExercise } from '@/redux/slices/exercisesSlice';
 import { TrashIcon } from 'lucide-react';
 import { toast } from 'sonner';
-import { Button } from '../ui/button';
+
+import { Button } from '@/components/ui/button';
+import { useAppDispatch } from '@/redux/hooks';
+import { deleteExercise } from '@/redux/slices/exercisesSlice';
 
 interface DeleteExerciseButtonProps {
   exerciseId: string;

@@ -1,5 +1,7 @@
-import { ActiveExercise } from '@/types/exercise';
-import { ExerciseSetRow, ExerciseSetRowProps } from './ExerciseSetRow';
+import { ExerciseSetRow } from './ExerciseSetRow';
+
+import type { ExerciseSetRowProps } from './ExerciseSetRow';
+import type { ActiveExercise } from '@/types/exercise';
 
 type OnCompleteSet = ExerciseSetRowProps['onCompleteSet'];
 type OnUncompleteSet = ExerciseSetRowProps['onUncompleteSet'];

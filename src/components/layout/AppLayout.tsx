@@ -1,7 +1,9 @@
-import { Toaster } from '@/components/ui/sonner';
 import { Outlet } from 'react-router';
+
 import { Header } from './Header';
 import { ThemeProvider } from './ThemeProvider';
+
+import { Toaster } from '@/components/ui/sonner';
 
 export function AppLayout() {
   return (

@@ -1,10 +1,13 @@
-import { renderWithRedux } from '@/lib/testUtils';
-import { exercisesSlice } from '@/redux/slices/exercisesSlice';
-import { IExercise, WeightUnits } from '@/types/exercise';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+
 import { HistoryPage } from '../HistoryPage';
+
+import type { IExercise, WeightUnits } from '@/types/exercise';
+
+import { renderWithRedux } from '@/lib/testUtils';
+import { exercisesSlice } from '@/redux/slices/exercisesSlice';
 
 const user = userEvent.setup();
 

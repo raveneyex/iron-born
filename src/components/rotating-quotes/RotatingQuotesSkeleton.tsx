@@ -1,6 +1,6 @@
-import { Card, CardContent } from '../ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
-import { Spinner } from '../ui/spinner';
+import { Card, CardContent } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Spinner } from '@/components/ui/spinner';
 
 export function RotatingQuotesSkeleton() {
   return (

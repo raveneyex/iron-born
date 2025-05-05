@@ -1,7 +1,9 @@
-import { ExercisesSliceState } from '@/redux/slices/exercisesSlice';
-import { ActiveExercise, IExercise, WeightUnits } from '@/types/exercise';
 import { describe, expect, it, vi } from 'vitest';
+
 import { exercisesSlice } from '../exercisesSlice';
+
+import type { ExercisesSliceState } from '@/redux/slices/exercisesSlice';
+import type { ActiveExercise, IExercise, WeightUnits } from '@/types/exercise';
 
 vi.mock('@/services/storageService', () => ({
   StorageService: {
