@@ -78,7 +78,7 @@ This is a _very_ rough and minimal implementation of an electron app. There may 
 
 ```bash
 git fetch
-cd electron-app
+git checkout electron-app
 ```
 
 2. Install dependencies
