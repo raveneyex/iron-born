@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router';
+import { BrowserRouter, HashRouter } from 'react-router';
 
 import './index.css';
 import { store } from './redux/store.ts';
@@ -13,12 +13,14 @@ if (!container) {
   throw new Error("Root element with id 'root' not found");
 }
 
+const Router = window.location.protocol === 'file:' ? HashRouter : BrowserRouter;
+
 createRoot(container).render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <Router>
         <AppRouter />
-      </BrowserRouter>
+      </Router>
     </Provider>
   </StrictMode>
 );

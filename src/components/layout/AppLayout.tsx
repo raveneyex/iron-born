@@ -10,7 +10,7 @@ export function AppLayout() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="h-svh w-svw flex flex-col">
         <Header />
-        <main className="p-4 flex flex-col w-full h-full overflow-x-hidden">
+        <main className="p-4 flex flex-col w-full h-full">
           <Outlet />
           <Toaster />
         </main>
