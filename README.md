@@ -70,6 +70,29 @@ npm run test
 npm run coverage
 ```
 
+## Run as Electron App (Experimental)
+
+This is a _very_ rough and minimal implementation of an electron app. There may be bugs.
+
+1. Fetch all branches and change to the `electron-app` branch
+
+```bash
+git fetch
+cd electron-app
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Run as electron
+
+```bash
+npm run electron
+```
+
 ## Built with
 
 <div align="center">
